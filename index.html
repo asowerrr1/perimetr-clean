@@ -6,9 +6,12 @@
     <title>ПЕРИМЕТР — Современный клининг загородных домов</title>
     
     <script>
-        // НАСТРОЙКИ TELEGRAM — ВСТАВЬТЕ СВОИ ДАННЫЕ ВНУТРИ КАВЫЧЕК:
+        // =========================================================================
+        // НАСТРОЙКИ TELEGRAM — МЕНЯЙТЕ СТРОГО ТУТ. НЕ УДАЛЯЙТЕ ОДИНАРНЫЕ КАВЫЧКИ ' '
+        // =========================================================================
         const TELEGRAM_TOKEN = '8732328387:AAHuh7J0aUz3KPGnyLlrp9nQe2Fmr_FZOeI';
         const TELEGRAM_CHAT_ID = '5351103203';
+        // =========================================================================
     </script>
 
     <style>
@@ -26,7 +29,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent; /* Убирает синюю рамку при тапе на смартфонах */
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -147,7 +150,7 @@
                 text-align: center;
             }
             .calculator-sidebar {
-                position: static !important; /* На мобилках чек падает вниз и не залипает */
+                position: static !important;
             }
         }
 
@@ -368,7 +371,7 @@
             padding: 14px 16px;
             border-radius: 10px;
             border: 1px solid transparent;
-            font-size: 16px; /* 16px предотвращает автоматический зум экрана на iOS */
+            font-size: 16px;
             font-weight: 600;
             color: var(--text-dark);
             outline: none;
@@ -403,9 +406,12 @@
             box-shadow: 0 8px 20px rgba(0, 230, 118, 0.3);
         }
 
+        .btn-order:hover {
+            background: #00C853;
+        }
+
         .btn-order:active {
             transform: scale(0.98);
-            background: #00C853;
         }
     </style>
 </head>
@@ -591,7 +597,7 @@
                 <input type="tel" id="user_phone" placeholder="+7 (999) 000-00-00">
             </div>
 
-            <button class="btn-order" id="submit_btn" onclick="submitOrder()" ontouchstart="">Вызвать бригаду</button>
+            <button class="btn-order" id="submit_btn">Вызвать бригаду</button>
         </div>
     </div>
 
@@ -646,25 +652,28 @@
             document.getElementById('total_price').innerText = total.toLocaleString() + ' руб.';
         }
 
-        function submitOrder() {
-            // Принудительно убираем клавиатуру на смартфонах перед отправкой, чтобы фокус не терялся
-            document.getElementById('user_address').blur();
-            document.getElementById('user_phone').blur();
+        function handleOrderSubmission() {
+            const addressInput = document.getElementById('user_address');
+            const phoneInput = document.getElementById('user_phone');
+            const btn = document.getElementById('submit_btn');
 
-            const address = document.getElementById('user_address').value.trim();
-            const phone = document.getElementById('user_phone').value.trim();
+            if (btn.disabled) return;
+
+            addressInput.blur();
+            phoneInput.blur();
+
+            const address = addressInput.value.trim();
+            const phone = phoneInput.value.trim();
             const totalPrice = document.getElementById('total_price').innerText;
 
             if (totalPrice === '0 руб.') {
                 alert('Пожалуйста, выберите хотя бы одну услугу перед отправкой заявки.');
                 return;
             }
-
             if (address === '') {
                 alert('Пожалуйста, укажите адрес объекта.');
                 return;
             }
-
             if (phone === '') {
                 alert('Пожалуйста, укажите ваш номер телефона.');
                 return;
@@ -691,10 +700,8 @@
                             `💰 *Итоговая сумма:* ${totalPrice}`;
 
             const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
-
-            // Меняем кнопку на статус отправки, чтобы пользователь видел реакцию на тап
-            const btn = document.getElementById('submit_btn');
             const originalText = btn.innerText;
+            
             btn.innerText = "ОТПРАВКА...";
             btn.disabled = true;
 
@@ -713,8 +720,8 @@
                 
                 if (response.ok) {
                     alert(`Заявка успешно принята!\nМенеджер свяжется с вами в течение 5 минут.`);
-                    document.getElementById('user_address').value = '';
-                    document.getElementById('user_phone').value = '';
+                    addressInput.value = '';
+                    phoneInput.value = '';
                 } else {
                     alert('Ошибка отправки. Проверьте правильность токена и ID чата в самом верху кода.');
                 }
@@ -723,8 +730,24 @@
                 btn.innerText = originalText;
                 btn.disabled = false;
                 console.error('Ошибка:', error);
-                alert('Ошибка сети. Проверьте подключение к интернету на телефоне.');
+                alert('Ошибка сети. Проверьте подключение к интернету.');
             });
         }
 
-        // Аль
+        // Железобетонная привязка кликов для ПК и смартфонов отдельно
+        const orderButton = document.getElementById('submit_btn');
+        
+        orderButton.addEventListener('click', function(e) {
+            handleOrderSubmission();
+        });
+
+        orderButton.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            handleOrderSubmission();
+        });
+
+        // Первичный запуск расчета при загрузке
+        calculateTotal();
+    </script>
+</body>
+</html>
