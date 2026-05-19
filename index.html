@@ -652,7 +652,7 @@
             document.getElementById('total_price').innerText = total.toLocaleString() + ' руб.';
         }
 
-        function handleOrderSubmission() {
+       function handleOrderSubmission() {
             const addressInput = document.getElementById('user_address');
             const phoneInput = document.getElementById('user_phone');
             const btn = document.getElementById('submit_btn');
@@ -699,39 +699,45 @@
                             `🛠 *Выбранные услуги:*\n${chosenServices}\n` +
                             `💰 *Итоговая сумма:* ${totalPrice}`;
 
+            // РЕШЕНИЕ ПРОБЛЕМЫ С БЛОКИРОВКОЙ: 
+            // Используем защищенный шлюз-прослойку вместо прямого api.telegram.org
             const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+            const proxyUrl = `https://corsproxy.io/?` + encodeURIComponent(url);
+
             const originalText = btn.innerText;
-            
             btn.innerText = "ОТПРАВКА...";
             btn.disabled = true;
 
-            fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: message,
-                    parse_mode: 'Markdown'
-                })
-            })
-            .then(response => {
-                btn.innerText = originalText;
-                btn.disabled = false;
-                
-                if (response.ok) {
-                    alert(`Заявка успешно принята!\nМенеджер свяжется с вами в течение 5 минут.`);
-                    addressInput.value = '';
-                    phoneInput.value = '';
-                } else {
-                    alert('Ошибка отправки. Проверьте правильность токена и ID чата в самом верху кода.');
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", proxyUrl, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    
+                    if (xhr.status === 200) {
+                        alert(`Заявка успешно принята!\nМенеджер свяжется с вами в течение 5 минут.`);
+                        addressInput.value = '';
+                        phoneInput.value = '';
+                    } else {
+                        alert('Ошибка отправки через шлюз. Проверьте токен и ID.');
+                    }
                 }
-            })
-            .catch(error => {
+            };
+
+            xhr.onerror = function() {
                 btn.innerText = originalText;
                 btn.disabled = false;
-                console.error('Ошибка:', error);
-                alert('Ошибка сети. Проверьте подключение к интернету.');
-            });
+                alert('Ошибка сети при отправке.');
+            };
+
+            xhr.send(JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'Markdown'
+            }));
         }
 
         // Железобетонная привязка кликов для ПК и смартфонов отдельно
