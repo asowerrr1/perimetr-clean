@@ -635,6 +635,124 @@
 
         // Запуск расчета при первой загрузке страницы
         calculateTotal();
+    <script>
+        // База данных услуг
+        const services = {
+            standart: { name: 'Стандартная уборка', price: 110, type: 'sqm' },
+            general: { name: 'Генеральная уборка', price: 140, type: 'sqm' },
+            repair: { name: 'Уборка после ремонта', price: 170, type: 'sqm' },
+            window: { name: 'Мойка окон', price: 350, type: 'pcs' },
+            sofa: { name: 'Химчистка дивана', price: 1200, type: 'pcs' },
+            oven: { name: 'Мойка духовки', price: 800, type: 'fixed' },
+            disinfect: { name: 'Озонация дома', price: 2500, type: 'fixed' }
+        };
+
+        function calculateTotal() {
+            let total = 0;
+            let detailsHtml = '';
+
+            for (let key in services) {
+                const checkbox = document.getElementById(`srv_${key}`);
+                const qtyInput = document.getElementById(`qty_${key}`);
+                
+                if (checkbox && checkbox.checked) {
+                    let cost = 0;
+                    let labelText = '';
+
+                    if (services[key].type === 'fixed') {
+                        cost = services[key].price;
+                        labelText = services[key].name;
+                    } else {
+                        const qty = parseInt(qtyInput.value) || 0;
+                        cost = qty * services[key].price;
+                        const unit = services[key].type === 'sqm' ? 'м²' : 'шт';
+                        labelText = `${services[key].name} (${qty} ${unit})`;
+                    }
+
+                    total += cost;
+                    detailsHtml += `
+                        <div class="calc-row">
+                            <span>${labelText}</span>
+                            <span>${cost.toLocaleString()} руб.</span>
+                        </div>
+                    `;
+                }
+            }
+
+            if (detailsHtml === '') {
+                detailsHtml = '<p style="color: #A0AEC0; font-size: 13px;">Выберите интересующие услуги в списке слева для мгновенного расчета.</p>';
+            }
+
+            document.getElementById('calc_details').innerHTML = detailsHtml;
+            document.getElementById('total_price').innerText = total.toLocaleString() + ' руб.';
+        }
+
+        // ФУНКЦИЯ ОТПРАВКИ В ТЕЛЕГРАМ
+        function submitOrder() {
+            const phone = document.getElementById('user_phone').value.trim();
+            const totalPrice = document.getElementById('total_price').innerText;
+
+            if (totalPrice === '0 руб.') {
+                alert('Пожалуйста, выберите хотя бы одну услугу перед отправкой заявки.');
+                return;
+            }
+
+            if (phone === '') {
+                alert('Пожалуйста, укажите ваш номер телефона для связи.');
+                return;
+            }
+
+            // Настройки вашего Telegram-бота (ВСТАВЬТЕ СВОИ ДАННЫЕ СЮДА)
+            const TELEGRAM_TOKEN =8732328387:AAHuh7J0aUz3KPGnyLlrp9nQe2Fmr_FZOeI;
+            const TELEGRAM_CHAT_ID =5351103203;
+
+            // Формируем список выбранных услуг для отправки текстом
+            let chosenServices = '';
+            for (let key in services) {
+                const checkbox = document.getElementById(`srv_${key}`);
+                if (checkbox && checkbox.checked) {
+                    if (services[key].type === 'fixed') {
+                        chosenServices += `• ${services[key].name}\n`;
+                    } else {
+                        const qty = document.getElementById(`qty_${key}`).value;
+                        const unit = services[key].type === 'sqm' ? 'м²' : 'шт';
+                        chosenServices += `• ${services[key].name}: ${qty} ${unit}\n`;
+                    }
+                }
+            }
+
+            // Красиво оформляем сообщение для Telegram
+            const message = `🚨 *НОВАЯ ЗАЯВКА ПЕРИМЕТР*\n\n` +
+                            `📱 *Телефон:* ${phone}\n\n` +
+                            `🛠 *Выбранные услуги:*\n${chosenServices}\n` +
+                            `💰 *Итоговая сумма:* ${totalPrice}`;
+
+            // URL запроса к API Телеграма
+            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
+            // Отправляем данные методом POST без перезагрузки страницы
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'Markdown' // Чтобы текст пришел с жирным шрифтом
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert(`Заявка успешно принята!\nАнастасия свяжется с вами в течение 5 минут.`);
+                } else {
+                    alert('Произошла ошибка при отправке заявки. Пожалуйста, свяжитесь по телефону.');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                alert('Ошибка сети. Проверьте подключение.');
+            });
+        }
+
+        // Запуск расчета при первой загрузке страницы
+        calculateTotal();
     </script>
-</body>
-</html>
