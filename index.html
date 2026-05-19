@@ -2,8 +2,15 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ПЕРИМЕТР — Современный клининг загородных домов</title>
+    
+    <script>
+        // НАСТРОЙКИ TELEGRAM — ВСТАВЬТЕ СВОИ ДАННЫЕ ВНУТРИ КАВЫЧЕК:
+        const TELEGRAM_TOKEN = '8732328387:AAHuh7J0aUz3KPGnyLlrp9nQe2Fmr_FZOeI';
+        const TELEGRAM_CHAT_ID = '5351103203';
+    </script>
+
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #E8F5E9 100%);
@@ -19,6 +26,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent; /* Убирает синюю рамку при тапе на смартфонах */
         }
 
         body {
@@ -30,7 +38,6 @@
             background-attachment: fixed;
         }
 
-        /* Мягкие декоративные листья на фоне, как на сгенерированной картинке */
         body::before {
             content: '';
             position: absolute;
@@ -129,6 +136,7 @@
         @media (max-width: 960px) {
             .main-container {
                 grid-template-columns: 1fr;
+                margin: 20px auto;
             }
             header {
                 flex-direction: column;
@@ -138,6 +146,9 @@
             .contact-item {
                 text-align: center;
             }
+            .calculator-sidebar {
+                position: static !important; /* На мобилках чек падает вниз и не залипает */
+            }
         }
 
         .services-section {
@@ -146,6 +157,21 @@
             border-radius: 24px;
             box-shadow: var(--shadow-premium);
             border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        @media (max-width: 480px) {
+            .services-section {
+                padding: 20px;
+            }
+            .service-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .right-interactive {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
 
         .section-title {
@@ -208,8 +234,8 @@
         }
 
         .service-info input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             accent-color: var(--accent-green);
             cursor: pointer;
         }
@@ -248,22 +274,18 @@
             gap: 8px;
             background: #F8FAFC;
             border: 1px solid #CBD5E1;
-            padding: 6px 12px;
+            padding: 8px 14px;
             border-radius: 10px;
             transition: border-color 0.2s;
         }
 
-        .input-box:focus-within {
-            border-color: var(--main-blue);
-        }
-
         .input-box input {
-            width: 60px;
+            width: 50px;
             border: none;
             background: transparent;
             text-align: center;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 16px;
             color: var(--text-dark);
             outline: none;
         }
@@ -274,7 +296,6 @@
             font-weight: 600;
         }
 
-        /* Правая колонка: Калькулятор */
         .calculator-sidebar {
             position: sticky;
             top: 110px;
@@ -284,6 +305,12 @@
             padding: 35px;
             border-radius: 24px;
             box-shadow: 0 20px 40px rgba(10, 60, 147, 0.2);
+        }
+
+        @media (max-width: 480px) {
+            .calculator-sidebar {
+                padding: 20px;
+            }
         }
 
         .calc-title {
@@ -319,7 +346,6 @@
             font-weight: 800;
         }
 
-        /* Форма ввода контактов */
         .phone-section {
             margin-top: 25px;
             background: rgba(255, 255, 255, 0.07);
@@ -339,15 +365,16 @@
 
         .phone-section input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 14px 16px;
             border-radius: 10px;
             border: 1px solid transparent;
-            font-size: 15px;
+            font-size: 16px; /* 16px предотвращает автоматический зум экрана на iOS */
             font-weight: 600;
             color: var(--text-dark);
             outline: none;
             background: #FFFFFF;
             margin-bottom: 15px;
+            -webkit-appearance: none;
         }
 
         .phone-section input:last-child {
@@ -356,7 +383,6 @@
 
         .phone-section input:focus {
             border-color: var(--accent-green);
-            box-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
         }
 
         .btn-order {
@@ -365,7 +391,7 @@
             background: var(--accent-green);
             color: var(--main-blue);
             text-align: center;
-            padding: 16px;
+            padding: 18px;
             border-radius: 14px;
             font-weight: 800;
             font-size: 16px;
@@ -377,10 +403,9 @@
             box-shadow: 0 8px 20px rgba(0, 230, 118, 0.3);
         }
 
-        .btn-order:hover {
+        .btn-order:active {
+            transform: scale(0.98);
             background: #00C853;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(0, 230, 118, 0.4);
         }
     </style>
 </head>
@@ -436,7 +461,7 @@
                         </div>
                     </div>
                     <div class="right-interactive">
-                        <div class="price-tag">110 руб. / м²</div>
+                        <div class="price-tag">110 р / м²</div>
                         <div class="input-box">
                             <input type="number" id="qty_standart" value="60" min="1" oninput="calculateTotal()">
                             <span>м²</span>
@@ -453,7 +478,7 @@
                         </div>
                     </div>
                     <div class="right-interactive">
-                        <div class="price-tag">140 руб. / м²</div>
+                        <div class="price-tag">140 р / м²</div>
                         <div class="input-box">
                             <input type="number" id="qty_general" value="60" min="1" oninput="calculateTotal()">
                             <span>м²</span>
@@ -470,7 +495,7 @@
                         </div>
                     </div>
                     <div class="right-interactive">
-                        <div class="price-tag">170 руб. / м²</div>
+                        <div class="price-tag">170 р / м²</div>
                         <div class="input-box">
                             <input type="number" id="qty_repair" value="60" min="1" oninput="calculateTotal()">
                             <span>м²</span>
@@ -491,7 +516,7 @@
                         </div>
                     </div>
                     <div class="right-interactive">
-                        <div class="price-tag">350 руб. / шт</div>
+                        <div class="price-tag">350 р / шт</div>
                         <div class="input-box">
                             <input type="number" id="qty_window" value="3" min="1" oninput="calculateTotal()">
                             <span>шт</span>
@@ -508,7 +533,7 @@
                         </div>
                     </div>
                     <div class="right-interactive">
-                        <div class="price-tag">1 200 руб. / шт</div>
+                        <div class="price-tag">1 200 р / шт</div>
                         <div class="input-box">
                             <input type="number" id="qty_sofa" value="1" min="1" oninput="calculateTotal()">
                             <span>шт</span>
@@ -566,16 +591,11 @@
                 <input type="tel" id="user_phone" placeholder="+7 (999) 000-00-00">
             </div>
 
-            <button class="btn-order" onclick="submitOrder()">Вызвать бригаду</button>
+            <button class="btn-order" id="submit_btn" onclick="submitOrder()" ontouchstart="">Вызвать бригаду</button>
         </div>
     </div>
 
     <script>
-        
-        const TELEGRAM_TOKEN = '8732328387:AAHuh7J0aUz3KPGnyLlrp9nQe2Fmr_FZOeI';
-        const TELEGRAM_CHAT_ID = '5351103203';
-
-        // База данных услуг
         const services = {
             standart: { name: 'Стандартная уборка', price: 110, type: 'sqm' },
             general: { name: 'Генеральная уборка', price: 140, type: 'sqm' },
@@ -627,6 +647,10 @@
         }
 
         function submitOrder() {
+            // Принудительно убираем клавиатуру на смартфонах перед отправкой, чтобы фокус не терялся
+            document.getElementById('user_address').blur();
+            document.getElementById('user_phone').blur();
+
             const address = document.getElementById('user_address').value.trim();
             const phone = document.getElementById('user_phone').value.trim();
             const totalPrice = document.getElementById('total_price').innerText;
@@ -646,7 +670,6 @@
                 return;
             }
 
-            // Формируем список выбранных услуг для отправки в ТГ
             let chosenServices = '';
             for (let key in services) {
                 const checkbox = document.getElementById(`srv_${key}`);
@@ -661,7 +684,6 @@
                 }
             }
 
-            // Формируем текст сообщения для бота
             const message = `🚨 *НОВАЯ ЗАЯВКА ПЕРИМЕТР*\n\n` +
                             `📱 *Телефон:* ${phone}\n` +
                             `📍 *Адрес:* ${address}\n\n` +
@@ -669,6 +691,12 @@
                             `💰 *Итоговая сумма:* ${totalPrice}`;
 
             const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
+            // Меняем кнопку на статус отправки, чтобы пользователь видел реакцию на тап
+            const btn = document.getElementById('submit_btn');
+            const originalText = btn.innerText;
+            btn.innerText = "ОТПРАВКА...";
+            btn.disabled = true;
 
             fetch(url, {
                 method: 'POST',
@@ -680,23 +708,23 @@
                 })
             })
             .then(response => {
+                btn.innerText = originalText;
+                btn.disabled = false;
+                
                 if (response.ok) {
                     alert(`Заявка успешно принята!\nМенеджер свяжется с вами в течение 5 минут.`);
-                    // Очищаем форму
                     document.getElementById('user_address').value = '';
                     document.getElementById('user_phone').value = '';
                 } else {
-                    alert('Ошибка при отправке в Телеграм. Проверьте правильность токена/ID чата в коде.');
+                    alert('Ошибка отправки. Проверьте правильность токена и ID чата в самом верху кода.');
                 }
             })
             .catch(error => {
+                btn.innerText = originalText;
+                btn.disabled = false;
                 console.error('Ошибка:', error);
-                alert('Ошибка сети при отправке.');
+                alert('Ошибка сети. Проверьте подключение к интернету на телефоне.');
             });
         }
 
-        // Запуск расчета при первой загрузке страницы
-        calculateTotal();
-    </script>
-</body>
-</html>
+        // Аль
