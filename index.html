@@ -485,7 +485,14 @@
             gap: 20px;
             margin-bottom: 35px;
         }
-
+<div class="media-card item-photo" onclick="openLightbox(this)">
+    <img src="photo2.jpg" onerror="this.src='https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600'" alt="Выполненная уборка">
+    <div class="media-info">Здесь напиши описание (например: Мытье панорамных окон)</div>
+</div>
+        <div class="media-card item-video" onclick="openLightbox(this)">
+    <video src="video2.mp4" controls poster="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600"></video>
+    <div class="media-info">Здесь напиши описание (например: Химчистка углового дивана)</div>
+</div>
         .media-card {
             background: var(--card-bg);
             border-radius: 12px;
