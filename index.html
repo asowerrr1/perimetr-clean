@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ПЕРИМЕТР — Профессиональный клининг загородных домов</title>
+    <title>ПЕРИМЕТР — Профессиональный клининг</title>
     
     <script>
         // =========================================================================
-        // НАСТРОЙКИ TELEGRAM — ВСТАВЬТЕ ВАШИ ДАННЫЕ ВНУТРИ КАВЫЧЕК
+        // НАСТРОЙКИ TELEGRAM
         // =========================================================================
         const TELEGRAM_TOKEN = '8732328387:AAHuh7J0aUz3KPGnyLlrp9nQe2Fmr_FZOeI';
         const TELEGRAM_CHAT_ID = '5351103203';
@@ -20,599 +20,176 @@
             --light-blue: #0ea5e9;
             --accent-aqua: #7dd3fc;
             --text-dark: #1e293b;
-            --card-bg: rgba(255, 255, 255, 0.92);
-            --shadow: 0 10px 30px rgba(12, 74, 110, 0.06);
-            --transition: all 0.25s ease-in-out;
+            --text-gray: #475569;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 30px rgba(12, 74, 110, 0.08);
+            --transition: all 0.3s ease;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+        
         body {
-            /* Мягкий, благородный градиент для фона, отлично смотрится на мобильных */
             background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 50%, #f0f9ff 100%);
             background-attachment: fixed;
             color: var(--text-dark);
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        /* ШАПКА И ГРАФИК РАБОТЫ */
+        /* --- ШАПКА И НАВИГАЦИЯ --- */
         header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 15px 5%;
+            padding: 10px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(12, 74, 110, 0.04);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             border-bottom: 1px solid rgba(226, 232, 240, 0.8);
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        .logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-img { width: 50px; height: 50px; object-fit: contain; border-radius: 8px; }
+        .logo-text h1 { font-size: 24px; font-weight: 800; color: var(--main-blue); letter-spacing: 1px; line-height: 1; }
+        .logo-text p { font-size: 10px; color: var(--text-gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .logo-img {
-            width: 65px;
-            height: 65px;
-            object-fit: contain;
-            border-radius: 8px;
-        }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 14px; transition: var(--transition); }
+        .nav-links a:hover { color: var(--light-blue); }
 
-        .logo-text h1 {
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--main-blue);
-            letter-spacing: 1px;
-            line-height: 1.1;
-        }
+        .header-contacts { display: flex; flex-direction: column; align-items: flex-end; }
+        .header-contacts a { font-size: 18px; font-weight: 800; color: var(--main-blue); text-decoration: none; }
+        .header-contacts span { font-size: 11px; color: var(--text-gray); }
 
-        .logo-text p {
-            font-size: 11px;
-            color: #64748b;
-            font-weight: 600;
-            margin-top: 2px;
-        }
-
-        .header-info {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .schedule {
-            font-size: 13px;
-            color: #475569;
-            background: #e0f2fe;
-            padding: 8px 14px;
-            border-radius: 8px;
-            border: 1px solid #bae6fd;
-        }
-
-        .schedule span {
-            font-weight: 700;
-            color: var(--main-blue);
-        }
-        
-        .schedule .day-off {
-            color: #ef4444;
-            font-weight: 700;
-        }
-
-        .phone-block a {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--main-blue);
-            text-decoration: none;
-        }
-
-        /* НАВИГАЦИЯ ТАБОВ */
-        .tabs-nav {
-            display: flex;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid #e2e8f0;
-            position: sticky;
-            top: 96px;
-            z-index: 999;
-        }
-
-        .tab-btn {
-            padding: 15px 25px;
-            border: none;
-            background: none;
-            font-size: 15px;
-            font-weight: 600;
-            color: #64748b;
-            cursor: pointer;
-            transition: var(--transition);
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab-btn.active {
-            color: var(--light-blue);
-            border-bottom-color: var(--light-blue);
-        }
-
-        .tab-content {
-            display: none;
-            max-width: 1300px;
-            margin: 25px auto;
-            padding: 0 20px;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* МАКЕТ КАЛЬКУЛЯТОРА */
-        .order-grid {
-            display: grid;
-            grid-template-columns: 1fr 420px;
-            gap: 25px;
-        }
-
-        .category-box {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255,255,255,0.7);
-            backdrop-filter: blur(5px);
-        }
-
-        .category-title {
-            font-size: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--light-blue);
-            font-weight: 700;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--light-blue);
-            padding-left: 10px;
-        }
-
-        /* КАРТОЧКИ УСЛУГ */
-        .service-item {
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 10px;
-            transition: var(--transition);
-            background: rgba(255,255,255,0.8);
-        }
-
-        .service-main {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .service-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .service-left input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
-            accent-color: var(--light-blue);
-            cursor: pointer;
-        }
-
-        .service-name {
-            font-weight: 600;
-            color: var(--text-dark);
-            cursor: pointer;
-            font-size: 15px;
-        }
-
-        .service-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .price-label {
-            font-weight: 700;
-            color: var(--main-blue);
-            font-size: 14px;
-            white-space: nowrap;
-        }
-
-        .qty-box {
-            display: flex;
-            align-items: center;
-            background: #f1f5f9;
-            padding: 4px 8px;
-            border-radius: 6px;
-        }
-
-        .qty-box input {
-            width: 45px;
-            border: none;
-            background: transparent;
+        /* --- ГЛАВНЫЙ ЭКРАН (HERO) --- */
+        .hero {
+            padding: 80px 5%;
             text-align: center;
-            font-weight: 700;
-            outline: none;
-            font-size: 14px;
+            background: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&q=80') center/cover no-repeat;
+            position: relative;
         }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(240,247,255,0.85), rgba(224,242,254,0.95));
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+        .hero h2 { font-size: 42px; color: var(--main-blue); font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
+        .hero p { font-size: 18px; color: var(--text-gray); margin-bottom: 30px; }
+        .btn-large {
+            display: inline-block; padding: 18px 40px; background: var(--light-blue); color: white;
+            text-decoration: none; font-size: 18px; font-weight: 700; border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); transition: var(--transition);
+        }
+        .btn-large:hover { transform: translateY(-3px); background: #0284c7; box-shadow: 0 15px 25px rgba(14, 165, 233, 0.4); }
 
-        .qty-box span {
-            font-size: 12px;
-            color: #64748b;
+        /* --- СЕКЦИИ ОБЩИЕ --- */
+        section { padding: 60px 5%; max-width: 1400px; margin: 0 auto; }
+        .section-title { font-size: 28px; font-weight: 800; color: var(--main-blue); margin-bottom: 30px; text-align: center; text-transform: uppercase; }
+        
+        /* --- О КОМПАНИИ --- */
+        .about-text {
+            background: var(--card-bg); padding: 40px; border-radius: 20px; box-shadow: var(--shadow);
+            text-align: center; font-size: 16px; color: var(--text-dark); border: 1px solid rgba(255,255,255,0.6);
+            max-width: 900px; margin: 0 auto 40px auto;
         }
+        .about-text a { color: var(--light-blue); font-weight: 700; text-decoration: none; }
+        .about-text a:hover { text-decoration: underline; }
 
-        .details-trigger {
-            font-size: 12px;
-            color: var(--light-blue);
-            cursor: pointer;
-            margin-top: 6px;
-            display: inline-block;
-        }
+        /* --- КОМАНДА --- */
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .team-card { background: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); text-align: center; transition: var(--transition); border: 1px solid rgba(255,255,255,0.6); }
+        .team-card:hover { transform: translateY(-5px); }
+        .team-card img { width: 100%; height: 250px; object-fit: cover; }
+        .team-info { padding: 20px; }
+        .team-name { font-size: 18px; font-weight: 700; color: var(--main-blue); margin-bottom: 5px; }
+        .team-role { font-size: 14px; color: var(--light-blue); font-weight: 600; text-transform: uppercase; }
 
-        .details-content {
-            display: none;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px dashed #e2e8f0;
-            font-size: 13px;
-            color: #475569;
+        /* --- КАЛЬКУЛЯТОР ЗАКАЗА --- */
+        .order-layout { display: grid; grid-template-columns: 1fr 400px; gap: 30px; align-items: start; }
+        
+        .category-box { background: var(--card-bg); border-radius: 16px; padding: 25px; margin-bottom: 25px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.6); }
+        .category-title { font-size: 18px; text-transform: uppercase; color: var(--light-blue); font-weight: 800; margin-bottom: 20px; border-left: 4px solid var(--light-blue); padding-left: 12px; }
+        
+        /* Плиточный дизайн услуг для одинакового размера */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
+        
+        .service-item {
+            background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px;
+            display: flex; flex-direction: column; justify-content: space-between; gap: 10px;
+            transition: var(--transition); height: 100%;
         }
+        .service-item:hover { border-color: var(--light-blue); box-shadow: 0 4px 12px rgba(14,165,233,0.1); }
+        .service-main { display: flex; flex-direction: column; gap: 10px; }
+        .service-left { display: flex; align-items: flex-start; gap: 10px; }
+        .service-left input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--light-blue); flex-shrink: 0; margin-top: 2px; }
+        .service-name { font-weight: 600; color: var(--text-dark); font-size: 14px; cursor: pointer; line-height: 1.3; }
+        
+        .service-right { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #e2e8f0; padding-top: 10px; }
+        .price-label { font-weight: 800; color: var(--main-blue); font-size: 14px; }
+        .qty-box { display: flex; align-items: center; background: #f1f5f9; padding: 4px 8px; border-radius: 6px; }
+        .qty-box input { width: 40px; border: none; background: transparent; text-align: center; font-weight: 700; outline: none; font-size: 14px; }
+        .qty-box span { font-size: 12px; color: var(--text-gray); }
 
-        .details-content li {
-            margin-bottom: 4px;
-            list-style: none;
-        }
+        /* Сайдбар калькулятора */
+        .sidebar { background: var(--main-blue); color: white; padding: 25px; border-radius: 20px; position: sticky; top: 90px; box-shadow: 0 20px 40px rgba(12, 74, 110, 0.2); }
+        .sidebar-title { font-size: 18px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 10px; margin-bottom: 15px; }
+        #invoice_details { font-size: 13px; margin-bottom: 15px; max-height: 250px; overflow-y: auto; padding-right: 5px; }
+        .invoice-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px; }
+        .total-row { border-top: 1px dashed rgba(255,255,255,0.3); padding-top: 15px; font-size: 24px; font-weight: 800; color: var(--accent-aqua); }
+        
+        .sidebar input { width: 100%; padding: 12px; border-radius: 8px; border: none; margin-bottom: 10px; outline: none; font-size: 14px; background: rgba(255,255,255,0.95); }
+        .time-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; margin-bottom: 15px; }
+        .time-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: 600; transition: var(--transition); }
+        .time-btn.active { background: var(--light-blue); border-color: var(--light-blue); }
+        .btn-submit { width: 100%; background: var(--light-blue); color: white; border: none; padding: 16px; border-radius: 8px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: var(--transition); font-size: 15px; margin-top: 10px; }
+        .btn-submit:hover { background: #0284c7; }
 
-        .details-content li::before {
-            content: "✔ ";
-            color: #10b981;
-            font-weight: bold;
-        }
+        /* --- ГАЛЕРЕЯ И ОТЗЫВЫ --- */
+        .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .media-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); cursor: pointer; border: 1px solid rgba(255,255,255,0.6); }
+        .media-card img, .media-card video { width: 100%; height: 200px; object-fit: cover; background: #000; display: block; }
+        .media-info { padding: 15px; font-size: 14px; font-weight: 700; color: var(--main-blue); text-align: center; }
 
-        .user-specifications {
-            display: none;
-            margin-top: 10px;
-        }
+        .reviews-layout { display: grid; grid-template-columns: 1fr 400px; gap: 30px; }
+        .review-card { background: var(--card-bg); padding: 20px; border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.6); }
+        .rev-head { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 700; font-size: 15px; color: var(--main-blue); }
+        .stars { color: #f59e0b; }
+        
+        .login-box { background: var(--card-bg); padding: 25px; border-radius: 16px; box-shadow: var(--shadow); height: fit-content; border: 1px solid rgba(255,255,255,0.6); }
+        .login-box input, .login-box textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 10px; outline: none; font-size: 14px; background: #f8fafc; }
+        .login-box button { width: 100%; background: var(--main-blue); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: var(--transition); }
+        .login-box button:hover { background: #0f172a; }
+        .star-rating-form { display: flex; gap: 5px; margin-bottom: 15px; }
+        .star-rating-form span { font-size: 30px; color: #cbd5e1; cursor: pointer; }
+        .star-rating-form span.active { color: #f59e0b; }
 
-        .user-specifications textarea {
-            width: 100%;
-            height: 65px;
-            padding: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            resize: none;
-            font-size: 13px;
-            outline: none;
-            background: #f8fafc;
-        }
+        /* --- FAQ --- */
+        .faq-item { background: var(--card-bg); border-radius: 12px; margin-bottom: 15px; box-shadow: var(--shadow); overflow: hidden; }
+        .faq-header { padding: 20px 25px; font-weight: 700; color: var(--main-blue); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-body { display: none; padding: 0 25px 25px 25px; color: var(--text-gray); border-top: 1px solid #f1f5f9; margin-top: 10px; padding-top: 15px; }
 
-        /* БОКОВАЯ ПАНЕЛЬ СМЕТЫ */
-        .sidebar {
-            background: var(--main-blue);
-            color: white;
-            padding: 24px;
-            border-radius: 20px;
-            height: fit-content;
-            box-shadow: 0 20px 40px rgba(12, 74, 110, 0.15);
-            position: sticky;
-            top: 170px;
-        }
+        /* ПОДВАЛ */
+        footer { background: var(--main-blue); color: white; padding: 40px 5%; text-align: center; margin-top: 50px; }
+        footer p { opacity: 0.7; font-size: 14px; margin-top: 10px; }
 
-        .sidebar-title {
-            font-size: 17px;
-            font-weight: 700;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            padding-bottom: 8px;
-            margin-bottom: 12px;
-        }
+        /* МОДАЛЬНОЕ ОКНО */
+        .lightbox-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12, 74, 110, 0.95); z-index: 2500; justify-content: center; align-items: center; }
+        .lightbox-modal.active { display: flex; }
+        .lightbox-content { max-width: 90%; max-height: 85%; border-radius: 8px; }
+        .lightbox-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; font-weight: bold; }
 
-        #invoice_details {
-            font-size: 13px;
-            margin-bottom: 15px;
-            max-height: 180px;
-            overflow-y: auto;
-        }
-
-        .invoice-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 6px;
-        }
-
-        .total-row {
-            border-top: 1px dashed rgba(255,255,255,0.25);
-            padding-top: 12px;
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--accent-aqua);
-        }
-
-        /* КАЛЕНДАРЬ */
-        .calendar-widget {
-            background: rgba(255,255,255,0.07);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        .calendar-input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 6px;
-            border: none;
-            outline: none;
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text-dark);
-        }
-
-        .time-slots {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            margin-top: 10px;
-        }
-
-        .time-btn {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.15);
-            color: white;
-            padding: 8px;
-            border-radius: 6px;
-            font-size: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .time-btn.active {
-            background: var(--light-blue);
-            border-color: var(--light-blue);
-        }
-
-        .time-btn:disabled {
-            opacity: 0.2;
-            cursor: not-allowed;
-        }
-
-        .auth-inputs input, .login-box input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
-            margin-bottom: 10px;
-            outline: none;
-            font-size: 14px;
-        }
-
-        .sidebar .auth-inputs input {
-            border: none;
-            color: var(--text-dark);
-        }
-
-        .btn-primary {
-            width: 100%;
-            background: var(--light-blue);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 8px;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 14px;
-        }
-
-        .btn-primary:hover { background: #0284c7; }
-
-        /* FAQ АККОРДЕОН */
-        .faq-item {
-            background: var(--card-bg);
-            border-radius: 12px;
-            margin-bottom: 12px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.6);
-        }
-
-        .faq-header {
-            padding: 20px;
-            font-weight: 600;
-            color: var(--main-blue);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 16px;
-        }
-
-        .faq-body {
-            display: none;
-            padding: 0 20px 20px 20px;
-            color: #475569;
-            font-size: 15px;
-            border-top: 1px solid #f1f5f9;
-            padding-top: 15px;
-            line-height: 1.6;
-        }
-
-        /* ГАЛЕРЕЯ И ОТЗЫВЫ */
-        .gallery-nav {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .g-btn {
-            padding: 8px 16px;
-            border: 1px solid #cbd5e1;
-            background: var(--card-bg);
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 13px;
-            transition: var(--transition);
-        }
-
-        .g-btn.active {
-            background: var(--main-blue);
-            color: white;
-            border-color: var(--main-blue);
-        }
-
-        .media-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 35px;
-        }
-
-        .media-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            cursor: pointer;
-            transition: var(--transition);
-            border: 1px solid rgba(255,255,255,0.6);
-        }
-
-        .media-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .media-card img, .media-card video {
-            width: 100%;
-            height: 190px;
-            object-fit: cover;
-            background: #000;
-            display: block;
-        }
-
-        .media-info {
-            padding: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--main-blue);
-        }
-
-        .reviews-layout {
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            gap: 25px;
-        }
-
-        .review-card {
-            background: var(--card-bg);
-            padding: 18px;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            margin-bottom: 12px;
-            border: 1px solid rgba(255,255,255,0.6);
-        }
-
-        .rev-head {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .stars { color: #f59e0b; font-size: 14px; }
-
-        .star-rating-form {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-        .star-rating-form span {
-            font-size: 26px;
-            color: #cbd5e1;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .star-rating-form span.active {
-            color: #f59e0b;
-        }
-
-        .login-box {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            height: fit-content;
-            border: 1px solid rgba(255,255,255,0.7);
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--main-blue);
-            margin-bottom: 15px;
-        }
-
-        /* ПОЛНОЭКРАННЫЙ LIGHTBOX */
-        .lightbox-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(12, 74, 110, 0.95);
-            z-index: 2500;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.25s ease-in-out;
-        }
-        .lightbox-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 85%;
-            border-radius: 8px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-        }
-        .lightbox-close {
-            position: absolute;
-            top: 20px; right: 25px;
-            color: white;
-            font-size: 35px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНОВ */
+        /* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
         @media (max-width: 968px) {
-            header { padding: 12px 4%; }
-            .header-info { display: none; }
-            .tabs-nav { top: 89px; }
-            .order-grid, .reviews-layout { grid-template-columns: 1fr; }
-            .sidebar { position: static; margin-top: 10px; }
-            .tab-btn { padding: 12px 15px; font-size: 13px; }
-            .logo-img { width: 50px; height: 50px; }
-            .logo-text h1 { font-size: 20px; }
+            .nav-links { display: none; } /* На мобилках прячем текстовое меню */
+            .header-contacts a { font-size: 15px; }
+            .hero h2 { font-size: 32px; }
+            .order-layout, .reviews-layout { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .services-grid { grid-template-columns: 1fr; } /* На телефоне по одному в ряд */
+            section { padding: 40px 5%; }
         }
     </style>
 </head>
@@ -624,273 +201,172 @@
     </div>
 
     <header>
-        <div class="logo-container">
+        <a href="#" class="logo-container">
             <img src="logo.png" class="logo-img" alt="ПЕРИМЕТР">
             <div class="logo-text">
                 <h1>ПЕРИМЕТР</h1>
                 <p>Чисто внутри. Идеально вокруг.</p>
             </div>
-        </div>
-
-        <div class="header-info">
-            <div class="schedule">
-                Режим работы: Пн, Вт, Чт, Пт, Сб, Вс — <span>С 8:00 до 17:00</span> | Ср — <span class="day-off">Выходной</span>
-            </div>
-            <div class="phone-block">
-                <a href="tel:+73852000000">+7 (3852) 00-00-00</a>
-            </div>
+        </a>
+        <nav class="nav-links">
+            <a href="#about">О компании</a>
+            <a href="#calculator">Услуги и Цены</a>
+            <a href="#gallery">Галерея</a>
+            <a href="#faq">Вопросы</a>
+        </nav>
+        <div class="header-contacts">
+            <a href="tel:+73852000000">+7 (3852) 00-00-00</a>
+            <span>Без выходных | 8:00 - 17:00</span>
         </div>
     </header>
 
-    <nav class="tabs-nav">
-        <button class="tab-btn active" onclick="switchTab('order-tab')">Калькулятор заказа</button>
-        <button class="tab-btn" onclick="switchTab('reviews-tab')">Отзывы и Галерея</button>
-        <button class="tab-btn" onclick="switchTab('faq-tab')">Частые вопросы (FAQ)</button>
-    </nav>
+    <div class="hero">
+        <div class="hero-content">
+            <h2>Профессиональный клининг для тех, кто ценит свое время и безупречную чистоту</h2>
+            <p>Уборка домов, квартир, коттеджей и коммерческих помещений любой сложности. Доверьте рутину профессионалам.</p>
+            <a href="#calculator" class="btn-large">Выбрать услуги и рассчитать стоимость</a>
+        </div>
+    </div>
 
-    <main class="tab-content active" id="order-tab">
-        <div class="order-grid">
+    <section id="about">
+        <div class="section-title">О КОМПАНИИ</div>
+        <div class="about-text">
+            Мы предоставляем полный перечень услуг по клинингу для физических и юридических лиц: поддерживающая уборка квартиры, генеральная уборка квартир в Барнауле и по всему Алтайскому краю, уборка офисов, уборка коттеджей, уборка после ремонта, химчистка, уборка после ЧП, так же есть <a href="https://bleskaltay.ru/#rec464853121" target="_blank">дополнительные услуги.</a>
+        </div>
+
+        <div class="section-title" style="margin-top: 60px;">Наша команда</div>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="team1.jpg" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600'" alt="Сотрудник">
+                <div class="team-info">
+                    <div class="team-name">Коновальцев Артем</div>
+                    <div class="team-role">Директор компании,директор по контролю качества</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="team2.jpg" onerror="this.src='https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600'" alt="Сотрудник">
+                <div class="team-info">
+                    <div class="team-name">Синицына Анастасия</div>
+                    <div class="team-role">Главный бухгалтер</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="team3.jpg" onerror="this.src='https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=600'" alt="Сотрудник">
+                <div class="team-info">
+                    <div class="team-name">Колесников Всеволод</div>
+                    <div class="team-role">Менеджер по маркетингу</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="team4.jpg" onerror="this.src='https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=600'" alt="Сотрудник">
+                <div class="team-info">
+                    <div class="team-name">Горлов Дмитрий</div>
+                    <div class="team-role">Технический специалист</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator">
+        <div class="section-title">Каталог услуг и заказ бригады</div>
+        
+        <div class="order-layout">
             <div class="services-wrapper">
                 
                 <div class="category-box">
                     <div class="category-title">Основной метражный клининг</div>
-                    
-                    <div class="service-item" id="item_standart">
-                        <div class="service-main">
-                            <div class="service-left">
-                                <input type="checkbox" id="srv_standart" onchange="toggleServiceSpec('standart')">
-                                <label for="srv_standart" class="service-name">Стандартная уборка</label>
-                            </div>
-                            <div class="service-right">
-                                <span class="price-label">100 руб / м²</span>
-                                <div class="qty-box"><input type="number" id="qty_standart" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div>
-                            </div>
-                        </div>
-                        <span class="details-trigger" onclick="toggleDetails('det_standart')">Посмотреть полный перечень...</span>
-                        <div class="details-content" id="det_standart">
-                            <ul>
-                                <li>Сухая, влажная уборка напольных покрытий</li>
-                                <li>Влажная уборка пола, плинтусов</li>
-                                <li>Протираем межкомнатные двери и откосы</li>
-                            </ul>
-                        </div>
-                        <div class="user-specifications" id="spec_standart">
-                            <textarea id="note_standart" placeholder="Укажите особенности помещения или пожелания по стандартной уборке..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="service-item" id="item_general">
-                        <div class="service-main">
-                            <div class="service-left">
-                                <input type="checkbox" id="srv_general" onchange="toggleServiceSpec('general')">
-                                <label for="srv_general" class="service-name">Генеральная уборка</label>
-                            </div>
-                            <div class="service-right">
-                                <span class="price-label">125 руб / м²</span>
-                                <div class="qty-box"><input type="number" id="qty_general" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div>
-                            </div>
-                        </div>
-                        <span class="details-trigger" onclick="toggleDetails('det_general')">Посмотреть полный перечень...</span>
-                        <div class="details-content" id="det_general">
-                            <ul>
-                                <li>Удаляем пыль с потолков и стен</li>
-                                <li>Проводим сухую уборку, влажную уборку</li>
-                                <li>Чистим все предметы стеклянные и зеркальные поверхности</li>
-                            </ul>
-                        </div>
-                        <div class="user-specifications" id="spec_general">
-                            <textarea id="note_general" placeholder="Укажите деликатные материалы или зоны особого внимания..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="service-item" id="item_repair">
-                        <div class="service-main">
-                            <div class="service-left">
-                                <input type="checkbox" id="srv_repair" onchange="toggleServiceSpec('repair')">
-                                <label for="srv_repair" class="service-name">Уборка после ремонта</label>
-                            </div>
-                            <div class="service-right">
-                                <span class="price-label">150 руб / м²</span>
-                                <div class="qty-box"><input type="number" id="qty_repair" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div>
-                            </div>
-                        </div>
-                        <span class="details-trigger" onclick="toggleDetails('det_repair')">Посмотреть полный перечень...</span>
-                        <div class="details-content" id="det_repair">
-                            <ul>
-                                <li>Убираем строительную пыль</li>
-                                <li>Освобождаем мебель от пленки</li>
-                                <li>Удаляем пыль с потолков и стен</li>
-                            </ul>
-                        </div>
-                        <div class="user-specifications" id="spec_repair">
-                            <textarea id="note_repair" placeholder="Опишите, какие строительные следы или затирку нужно удалить..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="service-item">
-                        <div class="service-main">
-                            <div class="service-left">
-                                <input type="checkbox" id="srv_regular" onchange="calculateTotal()">
-                                <label for="srv_regular" class="service-name">Регулярная уборка (Юр. лица, склады, офисы)</label>
-                            </div>
-                            <div class="service-right">
-                                <span class="price-label">от 3 руб / м²</span>
-                                <div class="qty-box"><input type="number" id="qty_regular" value="100" min="1" oninput="calculateTotal()"><span>м²</span></div>
-                            </div>
-                        </div>
+                    <div class="services-grid">
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_standart" onchange="calculateTotal()"><label for="srv_standart" class="service-name">Стандартная уборка</label></div></div><div class="service-right"><span class="price-label">100 руб/м²</span><div class="qty-box"><input type="number" id="qty_standart" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_general" onchange="calculateTotal()"><label for="srv_general" class="service-name">Генеральная уборка</label></div></div><div class="service-right"><span class="price-label">125 руб/м²</span><div class="qty-box"><input type="number" id="qty_general" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_repair" onchange="calculateTotal()"><label for="srv_repair" class="service-name">Уборка после ремонта</label></div></div><div class="service-right"><span class="price-label">150 руб/м²</span><div class="qty-box"><input type="number" id="qty_repair" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_regular" onchange="calculateTotal()"><label for="srv_regular" class="service-name">Регулярная уборка (Юр. лица)</label></div></div><div class="service-right"><span class="price-label">от 3 руб/м²</span><div class="qty-box"><input type="number" id="qty_regular" value="100" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
                     </div>
                 </div>
 
                 <div class="category-box">
                     <div class="category-title">Отдельные услуги по уборке</div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_window_m2" onchange="calculateTotal()"><label for="srv_window_m2" class="service-name">Мойка окон</label></div><div class="service-right"><span class="price-label">250 руб/м²</span><div class="qty-box"><input type="number" id="qty_window_m2" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_balcony" onchange="calculateTotal()"><label for="srv_balcony" class="service-name">Генеральная уборка БАЛКОНА</label></div><div class="service-right"><span class="price-label">от 3000 руб</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_bathroom" onchange="calculateTotal()"><label for="srv_bathroom" class="service-name">ГЕНЕРАЛЬНАЯ УБОРКА САНУЗЛА И ВАННОЙ</label></div><div class="service-right"><span class="price-label">от 4000 руб</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_kitchen" onchange="calculateTotal()"><label for="srv_kitchen" class="service-name">ГЕНЕРАЛЬНАЯ УБОРКА КУХНИ</label></div><div class="service-right"><span class="price-label">от 5000 руб</span></div></div></div>
-                    
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_pool" onchange="calculateTotal()"><label for="srv_pool" class="service-name">Мытье и дезинфекция бассейна</label></div><div class="service-right"><span class="price-label">от 300 руб / м²</span><div class="qty-box"><input type="number" id="qty_pool" value="25" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_micro" onchange="calculateTotal()"><label for="srv_micro" class="service-name">ПОЧИСТИТЬ МИКРОВОЛНОВКУ</label></div><div class="service-right"><span class="price-label">500 руб</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_ozon" onchange="calculateTotal()"><label for="srv_ozon" class="service-name">Услуга озонации помещения</label></div><div class="service-right"><span class="price-label">от 5000 руб</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_fridge" onchange="calculateTotal()"><label for="srv_fridge" class="service-name">ПОЧИСТИТЬ ХОЛОДИЛЬНИК</label></div><div class="service-right"><span class="price-label">500 руб</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_oven" onchange="calculateTotal()"><label for="srv_oven" class="service-name">ПОЧИСТИТЬ ДУХОВОЙ ШКАФ</label></div><div class="service-right"><span class="price-label">800 руб</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_fog" onchange="calculateTotal()"><label for="srv_fog" class="service-name">Сухой туман</label></div><div class="service-right"><span class="price-label">от 100 руб / м²</span><div class="qty-box"><input type="number" id="qty_fog" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_floor_wash" onchange="calculateTotal()"><label for="srv_floor_wash" class="service-name">Глубокая размывка Пола</label></div><div class="service-right"><span class="price-label">от 250 руб / м²</span><div class="qty-box"><input type="number" id="qty_floor_wash" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
+                    <div class="services-grid">
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_window_m2" onchange="calculateTotal()"><label for="srv_window_m2" class="service-name">Мойка окон</label></div></div><div class="service-right"><span class="price-label">250 руб/м²</span><div class="qty-box"><input type="number" id="qty_window_m2" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_balcony" onchange="calculateTotal()"><label for="srv_balcony" class="service-name">Генеральная уборка БАЛКОНА</label></div></div><div class="service-right"><span class="price-label">3000 руб</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_bathroom" onchange="calculateTotal()"><label for="srv_bathroom" class="service-name">ГЕНЕР. УБОРКА САНУЗЛА</label></div></div><div class="service-right"><span class="price-label">4000 руб</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_kitchen" onchange="calculateTotal()"><label for="srv_kitchen" class="service-name">ГЕНЕР. УБОРКА КУХНИ</label></div></div><div class="service-right"><span class="price-label">5000 руб</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_pool" onchange="calculateTotal()"><label for="srv_pool" class="service-name">Мытье бассейна</label></div></div><div class="service-right"><span class="price-label">300 руб/м²</span><div class="qty-box"><input type="number" id="qty_pool" value="25" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_micro" onchange="calculateTotal()"><label for="srv_micro" class="service-name">Почистить микроволновку</label></div></div><div class="service-right"><span class="price-label">500 руб</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_ozon" onchange="calculateTotal()"><label for="srv_ozon" class="service-name">Озонация помещения</label></div></div><div class="service-right"><span class="price-label">5000 руб</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_fridge" onchange="calculateTotal()"><label for="srv_fridge" class="service-name">Почистить холодильник</label></div></div><div class="service-right"><span class="price-label">500 руб</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_oven" onchange="calculateTotal()"><label for="srv_oven" class="service-name">Почистить духовой шкаф</label></div></div><div class="service-right"><span class="price-label">800 руб</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_fog" onchange="calculateTotal()"><label for="srv_fog" class="service-name">Сухой туман</label></div></div><div class="service-right"><span class="price-label">100 руб/м²</span><div class="qty-box"><input type="number" id="qty_fog" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_floor_wash" onchange="calculateTotal()"><label for="srv_floor_wash" class="service-name">Глубокая размывка Пола</label></div></div><div class="service-right"><span class="price-label">250 руб/м²</span><div class="qty-box"><input type="number" id="qty_floor_wash" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
+                    </div>
                 </div>
 
                 <div class="category-box">
-                    <div class="category-title">Услуги по химчистке</div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_sofa2" onchange="calculateTotal()"><label for="srv_sofa2" class="service-name">Диван двухместный</label></div><div class="service-right"><span class="price-label">1200 руб/шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_sofa3" onchange="calculateTotal()"><label for="srv_sofa3" class="service-name">Диван трехместный</label></div><div class="service-right"><span class="price-label">от 2000 руб/шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_sofa_ugl" onchange="calculateTotal()"><label for="srv_sofa_ugl" class="service-name">Диван угловой</label></div><div class="service-right"><span class="price-label">2500 руб/шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_sofa_nestandart" onchange="calculateTotal()"><label for="srv_sofa_nestandart" class="service-name">Нестандартный диван</label></div><div class="service-right"><span class="price-label">800 руб/место</span><div class="qty-box"><input type="number" id="qty_sofa_nestandart" value="1" min="1" oninput="calculateTotal()"><span>мест</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_kitchen_ugl" onchange="calculateTotal()"><label for="srv_kitchen_ugl" class="service-name">Кухонный уголок</label></div><div class="service-right"><span class="price-label">1500 руб</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_chair_std" onchange="calculateTotal()"><label for="srv_chair_std" class="service-name">Кресло стандартное</label></div><div class="service-right"><span class="price-label">1000 руб/шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_chair_bed" onchange="calculateTotal()"><label for="srv_chair_bed" class="service-name">Кресло кровать</label></div><div class="service-right"><span class="price-label">1300 руб/шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_pillow" onchange="calculateTotal()"><label for="srv_pillow" class="service-name">Подушки декоративные</label></div><div class="service-right"><span class="price-label">300 руб/шт</span><div class="qty-box"><input type="number" id="qty_pillow" value="1" min="1" oninput="calculateTotal()"><span>шт</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_stool" onchange="calculateTotal()"><label for="srv_stool" class="service-name">Стул без спинки/Стул со спинкой</label></div><div class="service-right"><span class="price-label">от 600 руб/шт</span><div class="qty-box"><input type="number" id="qty_stool" value="1" min="1" oninput="calculateTotal()"><span>шт</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_puf" onchange="calculateTotal()"><label for="srv_puf" class="service-name">Пуфик</label></div><div class="service-right"><span class="price-label">350 руб/шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_carpet" onchange="calculateTotal()"><label for="srv_carpet" class="service-name">Ковер</label></div><div class="service-right"><span class="price-label">200 руб/кв.м</span><div class="qty-box"><input type="number" id="qty_carpet" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_kovrolin" onchange="calculateTotal()"><label for="srv_kovrolin" class="service-name">Ковролин</label></div><div class="service-right"><span class="price-label">170 руб/кв.м</span><div class="qty-box"><input type="number" id="qty_kovrolin" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_long_carpet" onchange="calculateTotal()"><label for="srv_long_carpet" class="service-name">ДЛИННОВОРСОВЫЕ ПОКРЫТИЯ</label></div><div class="service-right"><span class="price-label">200 руб/кв.м.</span><div class="qty-box"><input type="number" id="qty_long_carpet" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_mat_child" onchange="calculateTotal()"><label for="srv_mat_child" class="service-name">МАТРАС ДЕТСКИЙ</label></div><div class="service-right"><span class="price-label">750 руб/шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_mat_1" onchange="calculateTotal()"><label for="srv_mat_1" class="service-name">МАТРАС ОДНОСПАЛЬНЫЙ</label></div><div class="service-right"><span class="price-label">1100 руб/шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_mat_15" onchange="calculateTotal()"><label for="srv_mat_15" class="service-name">МАТРАС ПОЛУТОРНЫЙ (140 см - 200 см)</label></div><div class="service-right"><span class="price-label">от 1400 руб</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_mat_2" onchange="calculateTotal()"><label for="srv_mat_2" class="service-name">МАТРАС ДВУХСПАЛЬНЫЙ (160 см - 200 см)</label></div><div class="service-right"><span class="price-label">2000 руб/шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_mat_custom" onchange="calculateTotal()"><label for="srv_mat_custom" class="service-name">МАТРАС НЕСТАНДАРТНЫЙ</label></div><div class="service-right"><span class="price-label">600 руб/кв.м.</span><div class="qty-box"><input type="number" id="qty_mat_custom" value="2" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_comp_chair" onchange="calculateTotal()"><label for="srv_comp_chair" class="service-name">Компьютерное кресло</label></div><div class="service-right"><span class="price-label">от 400 руб/шт</span></div></div></div>
-                    
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_stroller" onchange="calculateTotal()"><label for="srv_stroller" class="service-name">Детская коляска</label></div><div class="service-right"><span class="price-label">800 руб/шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_wheelchair" onchange="calculateTotal()"><label for="srv_wheelchair" class="service-name">Инвалидная коляска</label></div><div class="service-right"><span class="price-label">800 руб/шт</span></div></div></div>
+                    <div class="category-title">Химчистка мебели и ковров</div>
+                    <div class="services-grid">
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_sofa2" onchange="calculateTotal()"><label for="srv_sofa2" class="service-name">Диван двухместный</label></div></div><div class="service-right"><span class="price-label">1200 руб/шт</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_sofa_ugl" onchange="calculateTotal()"><label for="srv_sofa_ugl" class="service-name">Диван угловой</label></div></div><div class="service-right"><span class="price-label">2500 руб/шт</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_kitchen_ugl" onchange="calculateTotal()"><label for="srv_kitchen_ugl" class="service-name">Кухонный уголок</label></div></div><div class="service-right"><span class="price-label">1500 руб</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_chair_std" onchange="calculateTotal()"><label for="srv_chair_std" class="service-name">Кресло стандартное</label></div></div><div class="service-right"><span class="price-label">1000 руб/шт</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_pillow" onchange="calculateTotal()"><label for="srv_pillow" class="service-name">Подушки декоративные</label></div></div><div class="service-right"><span class="price-label">300 руб/шт</span><div class="qty-box"><input type="number" id="qty_pillow" value="1" min="1" oninput="calculateTotal()"></div></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_carpet" onchange="calculateTotal()"><label for="srv_carpet" class="service-name">Химчистка Ковра</label></div></div><div class="service-right"><span class="price-label">200 руб/м²</span><div class="qty-box"><input type="number" id="qty_carpet" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_mat_2" onchange="calculateTotal()"><label for="srv_mat_2" class="service-name">МАТРАС ДВУХСПАЛЬНЫЙ</label></div></div><div class="service-right"><span class="price-label">2000 руб/шт</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_stroller" onchange="calculateTotal()"><label for="srv_stroller" class="service-name">Детская коляска</label></div></div><div class="service-right"><span class="price-label">800 руб/шт</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_wheelchair" onchange="calculateTotal()"><label for="srv_wheelchair" class="service-name">Инвалидная коляска</label></div></div><div class="service-right"><span class="price-label">800 руб/шт</span></div></div>
+                    </div>
                 </div>
 
-                <div class="category-box">
-                    <div class="category-title">Мытье стекол, окон и фасадов</div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_vitrazh_1" onchange="calculateTotal()"><label for="srv_vitrazh_1" class="service-name">МЫТЬЕ СТЕКОЛ ВИТРАЖ (1 сторона)</label></div><div class="service-right"><span class="price-label">50 руб\м²</span><div class="qty-box"><input type="number" id="qty_vitrazh_1" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_glass_frame" onchange="calculateTotal()"><label for="srv_glass_frame" class="service-name">МЫТЬЕ ОСТЕКЛЕНИЯ С РАМАМИ</label></div><div class="service-right"><span class="price-label">60 руб\м²</span><div class="qty-box"><input type="number" id="qty_glass_frame" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_win_std1_p" onchange="calculateTotal()"><label for="srv_win_std1_p" class="service-name">МЫТЬЕ ОКНА СТАНДАРТНОГО за 1 створку (Пластик)</label></div><div class="service-right"><span class="price-label">350 руб\шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_win_std1_w" onchange="calculateTotal()"><label for="srv_win_std1_w" class="service-name">МЫТЬЕ ОКНА СТАНДАРТНОГО за 1 створку (Дерево)</label></div><div class="service-right"><span class="price-label">700 руб\шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_win_std2_p" onchange="calculateTotal()"><label for="srv_win_std2_p" class="service-name">Окно стандартное двухстворчатое (Пластик)</label></div><div class="service-right"><span class="price-label">400 руб\шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_win_std2_w" onchange="calculateTotal()"><label for="srv_win_std2_w" class="service-name">Окно стандартное двухстворчатое (Дерево)</label></div><div class="service-right"><span class="price-label">700 руб\шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_win_std3_p" onchange="calculateTotal()"><label for="srv_win_std3_p" class="service-name">Окно стандартное трехстворчатое (Пластик)</label></div><div class="service-right"><span class="price-label">600 руб\шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_win_std3_w" onchange="calculateTotal()"><label for="srv_win_std3_w" class="service-name">Окно стандартное трехстворчатое (Дерево)</label></div><div class="service-right"><span class="price-label">800 руб\шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_com_glass" onchange="calculateTotal()"><label for="srv_com_glass" class="service-name">Коммерческое остекление</label></div><div class="service-right"><span class="price-label">от 250 руб\м²</span><div class="qty-box"><input type="number" id="qty_com_glass" value="20" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_facade" onchange="calculateTotal()"><label for="srv_facade" class="service-name">МОЙКА ФАСАДОВ</label></div><div class="service-right"><span class="price-label">100 руб\м²</span><div class="qty-box"><input type="number" id="qty_facade" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_facade_rough" onchange="calculateTotal()"><label for="srv_facade_rough" class="service-name">МОЙКА ФАСАДОВ (Не гладкая поверхность)</label></div><div class="service-right"><span class="price-label">от 60 до 100 руб\м²</span><div class="qty-box"><input type="number" id="qty_facade_rough" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_facade_ribbed" onchange="calculateTotal()"><label for="srv_facade_ribbed" class="service-name">МЫТЬЕ ФАСАДОВ (Гладкая ребристая и шероховатая)</label></div><div class="service-right"><span class="price-label">40 руб\м²</span><div class="qty-box"><input type="number" id="qty_facade_ribbed" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_balcony_block_p" onchange="calculateTotal()"><label for="srv_balcony_block_p" class="service-name">МЫТЬЕ БАЛКОННОГО БЛОКА (Пластик)</label></div><div class="service-right"><span class="price-label">800 руб\шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_balcony_block_w" onchange="calculateTotal()"><label for="srv_balcony_block_w" class="service-name">МЫТЬЕ БАЛКОННОГО БЛОКА (Дерево)</label></div><div class="service-right"><span class="price-label">1000 руб\шт</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_grids" onchange="calculateTotal()"><label for="srv_grids" class="service-name">МЫТЬЕ МОСКИТНЫХ СЕТОК</label></div><div class="service-right"><span class="price-label">от 200 руб\шт</span><div class="qty-box"><input type="number" id="qty_grids" value="2" min="1" oninput="calculateTotal()"><span>шт</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_win_bars_p" onchange="calculateTotal()"><label for="srv_win_bars_p" class="service-name">МЫТЬЕ ОКОННЫХ РЕШЁТОК (Пластик)</label></div><div class="service-right"><span class="price-label">от 150 руб</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_win_bars_w" onchange="calculateTotal()"><label for="srv_win_bars_w" class="service-name">МЫТЬЕ ОКОННЫХ РЕШЁТОК (Дерево)</label></div><div class="service-right"><span class="price-label">от 250 руб</span></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_siding" onchange="calculateTotal()"><label for="srv_siding" class="service-name">САЙДИНГ ОБЛИЦОВОЧНЫЙ (Работа на высоте)</label></div><div class="service-right"><span class="price-label">от 50 до 70 руб\м²</span><div class="qty-box"><input type="number" id="qty_siding" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_vitrazh_in" onchange="calculateTotal()"><label for="srv_vitrazh_in" class="service-name">МЫТЬЕ ВИТРАЖЕЙ ВНУТРИ</label></div><div class="service-right"><span class="price-label">250 руб\м²</span><div class="qty-box"><input type="number" id="qty_vitrazh_in" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_banner_flat" onchange="calculateTotal()"><label for="srv_banner_flat" class="service-name">МЫТЬЕ РЕКЛАМНОЙ ВЫВЕСКИ (Гладкая поверхность, баннер)</label></div><div class="service-right"><span class="price-label">90 руб\м²</span><div class="qty-box"><input type="number" id="qty_banner_flat" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                    <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_banner_letters" onchange="calculateTotal()"><label for="srv_banner_letters" class="service-name">МЫТЬЕ РЕКЛАМНОЙ ВЫВЕСКИ (Объемные буквы)</label></div><div class="service-right"><span class="price-label">от 100 руб\м²</span><div class="qty-box"><input type="number" id="qty_banner_letters" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div></div>
-                </div>
             </div>
 
             <div class="sidebar">
                 <div class="sidebar-title">Ваша смета</div>
-                <div id="invoice_details">Выберите пункты для автоматического расчета.</div>
+                <div id="invoice_details">Выберите пункты для расчета.</div>
                 
                 <div class="invoice-row total-row">
                     <span>Итого:</span>
                     <span id="total_price">0 руб.</span>
                 </div>
 
-                <div class="sidebar-title" style="margin-top:20px;">Дата и время (Ср — выходной)</div>
-                <div class="calendar-widget">
-                    <input type="date" id="order_date" class="calendar-input" onchange="generateTimeSlots()">
-                    <div class="time-slots" id="time_slots_container"></div>
-                </div>
+                <div class="sidebar-title" style="margin-top:25px;">Дата и время выезда</div>
+                <input type="date" id="order_date" onchange="generateTimeSlots()" style="cursor:pointer;">
+                <div class="time-slots" id="time_slots_container"></div>
 
-                <div class="sidebar-title">Данные для выезда бригады</div>
-                <div class="auth-inputs">
-                    <input type="text" id="cust_address" placeholder="Укажите точный адрес объекта">
-                    <input type="tel" id="cust_phone" placeholder="Ваш номер телефона (+7...)">
-                </div>
+                <div class="sidebar-title" style="margin-top:15px;">Контактные данные</div>
+                <input type="text" id="cust_address" placeholder="Адрес (Улица, дом, кв)">
+                <input type="tel" id="cust_phone" placeholder="Ваш телефон (+7...)">
 
-                <button class="btn-primary" id="submit_order_btn" onclick="finalizeOrder()" style="margin-top:10px;">Оформить заказ бригады</button>
+                <button class="btn-submit" onclick="finalizeOrder()">Оформить заявку</button>
             </div>
         </div>
-    </main>
+    </section>
 
- <main class="tab-content" id="reviews-tab">
-        <div class="section-title">Медиа-отчеты выполненных работ «До / После»</div>
-        <div class="gallery-nav">
-            <button class="g-btn active" id="btn_all" onclick="filterMedia('all')">Все отчеты</button>
-            <button class="g-btn" id="btn_photo" onclick="filterMedia('photo')">Только Фото</button>
-            <button class="g-btn" id="btn_video" onclick="filterMedia('video')">Только Видео</button>
-        </div>
-
+    <section id="gallery">
+        <div class="section-title">Галерея выполненных работ</div>
         <div class="media-grid">
-            
-            <div class="media-card item-photo" onclick="openLightbox(this)">
-                <img src="photo1.jpg" onerror="this.src='https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600'" alt="Выполненная уборка">
-                <div class="media-info">Генеральная уборка комнат коттеджа</div>
+            <div class="media-card" onclick="openLightbox(this)">
+                <img src="photo1.jpg" onerror="this.src='https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600'" alt="Уборка">
+                <div class="media-info">Генеральная уборка комнат</div>
             </div>
-            
-            <div class="media-card item-video" onclick="openLightbox(this)">
+            <div class="media-card" onclick="openLightbox(this)">
                 <video src="video1.mp4" controls poster="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600"></video>
-                <div class="media-info">Видео-отчет удаления строительной пыли</div>
+                <div class="media-info">Очистка после ремонта</div>
             </div>
-
-            <div class="media-card item-photo" onclick="openLightbox(this)">
-                <img src="photo2.jpg" onerror="this.src='https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600'" alt="Выполненная уборка">
-                <div class="media-info">Мытье панорамных окон и остекления</div>
-            </div>
-
-            <div class="media-card item-video" onclick="openLightbox(this)">
-                <video src="video2.mp4" controls poster="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600"></video>
-                <div class="media-info">Химчистка мягкой мебели и диванов</div>
-            </div>
-
-            <div class="media-card item-photo" onclick="openLightbox(this)">
-                <img src="photo3.jpg" onerror="this.src='https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600'" alt="Выполненная уборка">
-                <div class="media-info">Глубокая размывка твердых полов</div>
-            </div>
-
-            <div class="media-card item-video" onclick="openLightbox(this)">
-                <video src="video3.mp4" controls poster="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600"></video>
+            <div class="media-card" onclick="openLightbox(this)">
+                <img src="photo2.jpg" onerror="this.src='https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=600'" alt="Бассейн">
                 <div class="media-info">Мытье и дезинфекция бассейна</div>
             </div>
+        </div>
 
-        </div> <div class="reviews-layout">
-            <div>
-                <div class="section-title">Отзывы заказчиков</div>
-                <div id="reviews_container">
-                    <div class="review-card">
-                        <div class="rev-head"><span>Ольга (п. Спутник)</span><span class="stars">★★★★★</span></div>
-                        <p>Заказывали уборку дома после строителей. Отмыли всё до блеска, пыли на стенах не осталось совсем. Большое спасибо!</p>
-                    </div>
+        <div class="section-title" style="margin-top: 60px;">Отзывы наших клиентов</div>
+        <div class="reviews-layout">
+            <div id="reviews_container">
+                <div class="review-card">
+                    <div class="rev-head"><span>Ольга (п. Спутник)</span><span class="stars">★★★★★</span></div>
+                    <p style="color:var(--text-gray); font-size:14px;">Заказывали уборку дома после строителей. Отмыли всё до блеска, пыли на стенах не осталось совсем. Большое спасибо!</p>
                 </div>
             </div>
 
             <div class="login-box">
-                <div style="font-weight:700; margin-bottom:12px; color:var(--main-blue);">Оставить свой отзыв</div>
-                
-                <div style="font-size: 13px; color: #64748b; margin-bottom: 4px;">Ваша оценка:</div>
+                <div style="font-weight:800; margin-bottom:15px; color:var(--main-blue); font-size:18px;">Оставить отзыв</div>
                 <div class="star-rating-form" id="star_rating_input">
                     <span data-star="1" class="active" onclick="setFormStars(1)">★</span>
                     <span data-star="2" class="active" onclick="setFormStars(2)">★</span>
@@ -898,61 +374,65 @@
                     <span data-star="4" class="active" onclick="setFormStars(4)">★</span>
                     <span data-star="5" class="active" onclick="setFormStars(5)">★</span>
                 </div>
-
                 <input type="text" id="rev_name" placeholder="Ваше имя">
-                <textarea id="rev_text" placeholder="Текст вашего отзыва..." style="width:100%; height:90px; padding:10px; margin-bottom:10px; border:1px solid #cbd5e1; border-radius:8px; resize:none; font-size:14px; outline:none;"></textarea>
-                
-                <button class="btn-primary" onclick="sendReview()">Опубликовать отзыв</button>
+                <textarea id="rev_text" placeholder="Текст вашего отзыва..." style="height:100px; resize:none;"></textarea>
+                <button onclick="sendReview()">Опубликовать</button>
             </div>
         </div>
-    </main>
+    </section>
 
-    <main class="tab-content" id="faq-tab">
-        <div class="section-title" style="text-align: center; margin-bottom: 30px;">Ответы на часто задаваемые вопросы пользователей</div>
-        
-        <div class="faq-item">
-            <div class="faq-header" onclick="toggleFaq(this)">Какие вы даете гарантии, что уборка будет выполнена качественно? <span>+</span></div>
-            <div class="faq-body">Наша company несет полную ответственность за высокое качество оказываемых услуг и наша гарантия – это ваша оценка результата. В случае если оценка будет низкой, то мы сделаем все возможное чтобы исправить ее, либо вернем вам деньги.</div>
+    <section id="faq">
+        <div class="section-title">Частые вопросы</div>
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div class="faq-item">
+                <div class="faq-header" onclick="toggleFaq(this)">Какие вы даете гарантии, что уборка будет выполнена качественно? <span style="font-size:24px;">+</span></div>
+                <div class="faq-body">Наша компания несет полную ответственность за высокое качество оказываемых услуг. В случае если оценка будет низкой, мы сделаем все возможное чтобы исправить ее, либо вернем вам деньги.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-header" onclick="toggleFaq(this)">Возможно и безопасно ли оставлять Клинера одного в квартире? <span style="font-size:24px;">+</span></div>
+                <div class="faq-body">Да, это возможно и безопасно. На время уборки мы несём полную юридическую ответственность за сохранность вашего имущества.</div>
+            </div>
         </div>
+    </section>
 
-        <div class="faq-item">
-            <div class="faq-header" onclick="toggleFaq(this)">Возможно и безопасно ли оставлять Клинера одного в квартире? <span>+</span></div>
-            <div class="faq-body">Да, это возможно и безопасно. Пользуясь услугами нашей компании все ваше имущество застраховано на время уборки и мы несём ответственность за его сохранность.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-header" onclick="toggleFaq(this)">Выезжаете ли вы в пригород? <span>+</span></div>
-            <div class="faq-body">Да, мы выезжаем в пригород.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-header" onclick="toggleFaq(this)">Как возможно оплатить ваши услуги? <span>+</span></div>
-            <div class="faq-body">Вы можете оплачивать как наличным так и безналичным способами путем перевода денег на карту Сбербанк. И для юридических лиц через расчетный счет компании.</div>
-        </div>
-    </main>
+    <footer>
+        <div style="font-size: 24px; font-weight: 800; margin-bottom: 10px;">ПЕРИМЕТР</div>
+        <p>Профессиональный клининг загородных домов и коммерческих помещений</p>
+        <p style="margin-top:20px;">Телефон для связи: <strong>+7 (3852) 00-00-00</strong></p>
+        <p style="opacity: 0.5; margin-top:30px;">© 2026 ПЕРИМЕТР. Все права защищены.</p>
+    </footer>
 
     <script>
+        // База услуг
+        const services = {
+            standart: { name: 'Стандартная уборка', price: 100, type: 'sqm' },
+            general: { name: 'Генеральная уборка', price: 125, type: 'sqm' },
+            repair: { name: 'Уборка после ремонта', price: 150, type: 'sqm' },
+            regular: { name: 'Регулярная уборка', price: 3, type: 'sqm' },
+            window_m2: { name: 'Мойка окон (м²)', price: 250, type: 'sqm' },
+            balcony: { name: 'Уборка балкона', price: 3000, type: 'fixed' },
+            bathroom: { name: 'Уборка санузла', price: 4000, type: 'fixed' },
+            kitchen: { name: 'Уборка кухни', price: 5000, type: 'fixed' },
+            pool: { name: 'Мытье бассейна', price: 300, type: 'sqm' },
+            micro: { name: 'Чистка микроволновки', price: 500, type: 'fixed' },
+            ozon: { name: 'Озонация', price: 5000, type: 'fixed' },
+            fridge: { name: 'Чистка холодильника', price: 500, type: 'fixed' },
+            oven: { name: 'Чистка духовки', price: 800, type: 'fixed' },
+            fog: { name: 'Сухой туман', price: 100, type: 'sqm' },
+            floor_wash: { name: 'Размывка пола', price: 250, type: 'sqm' },
+            sofa2: { name: 'Диван 2-местный', price: 1200, type: 'fixed' },
+            sofa_ugl: { name: 'Диван угловой', price: 2500, type: 'fixed' },
+            kitchen_ugl: { name: 'Кухонный уголок', price: 1500, type: 'fixed' },
+            chair_std: { name: 'Кресло', price: 1000, type: 'fixed' },
+            pillow: { name: 'Подушки', price: 300, type: 'counter' },
+            carpet: { name: 'Химчистка ковра', price: 200, type: 'sqm' },
+            mat_2: { name: 'Матрас 2-спальный', price: 2000, type: 'fixed' },
+            stroller: { name: 'Детская коляска', price: 800, type: 'fixed' },
+            wheelchair: { name: 'Инвалидная коляска', price: 800, type: 'fixed' }
+        };
+
         let selectedFormStars = 5;
         let selectedTimeSlot = '';
-
-        function switchTab(id) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        function toggleDetails(id) {
-            const el = document.getElementById(id);
-            el.style.display = el.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function toggleServiceSpec(key) {
-            const isChecked = document.getElementById(`srv_${key}`).checked;
-            const specEl = document.getElementById(`spec_${key}`);
-            if(specEl) specEl.style.display = isChecked ? 'block' : 'none';
-            calculateTotal();
-        }
 
         function calculateTotal() {
             let total = 0;
@@ -963,25 +443,20 @@
                 const qtyInput = document.getElementById(`qty_${key}`);
                 
                 if (checkbox && checkbox.checked) {
-                    let cost = 0;
-                    let label = '';
-
+                    let cost = 0, label = '';
                     if (services[key].type === 'fixed') {
-                        cost = services[key].price;
-                        label = services[key].name;
+                        cost = services[key].price; label = services[key].name;
                     } else {
                         const qty = parseInt(qtyInput.value) || 0;
                         cost = qty * services[key].price;
-                        let unit = services[key].type === 'sqm' ? 'м²' : 'ч';
-                        if(key === 'sofa_nestandart') unit = 'мест';
-                        if(key === 'pillow' || key === 'stool' || key === 'grids') unit = 'шт';
+                        let unit = services[key].type === 'sqm' ? 'м²' : 'шт';
                         label = `${services[key].name} (${qty} ${unit})`;
                     }
                     total += cost;
                     detailsHtml += `<div class="invoice-row"><span>• ${label}</span><span>${cost} руб.</span></div>`;
                 }
             }
-            document.getElementById('invoice_details').innerHTML = detailsHtml || 'Выберите пункты для автоматического расчета.';
+            document.getElementById('invoice_details').innerHTML = detailsHtml || 'Выберите пункты для расчета.';
             document.getElementById('total_price').innerText = total + ' руб.';
         }
 
@@ -990,26 +465,13 @@
             const container = document.getElementById('time_slots_container');
             container.innerHTML = '';
             selectedTimeSlot = '';
-
             if(!dateInput) return;
-
-            const dayOfWeek = new Date(dateInput).getDay();
-            
-            if(dayOfWeek === 3) {
-                container.innerHTML = '<p style="color:#ef4444; font-size:12px; grid-column: 1/4;">Среда — официальный выходной день. Пожалуйста, выберите другую дату.</p>';
-                return;
-            }
-
             for(let h = 8; h <= 16; h++) {
-                const timeStr = `${h}:00`;
                 const btn = document.createElement('button');
-                btn.className = 'time-btn';
-                btn.innerText = timeStr;
-                btn.type = 'button';
+                btn.className = 'time-btn'; btn.innerText = `${h}:00`; btn.type = 'button';
                 btn.onclick = function() {
                     document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    selectedTimeSlot = timeStr;
+                    btn.classList.add('active'); selectedTimeSlot = `${h}:00`;
                 };
                 container.appendChild(btn);
             }
@@ -1022,185 +484,74 @@
             const price = document.getElementById('total_price').innerText;
 
             if(price === '0 руб.' || !address || !phone || !date || !selectedTimeSlot) {
-                alert('Пожалуйста, выберите услуги, дату, время выезда, укажите телефон и адрес объекта!');
+                alert('Пожалуйста, выберите услуги, дату, время, укажите телефон и адрес!');
                 return;
             }
 
-            let textReport = `🚨 *НОВАЯ ЗАЯВКА ПЕРИМЕТР*\n\n📱 *Телефон:* ${phone}\n📍 *Адрес:* ${address}\n📅 *Дата:* ${date} в ${selectedTimeSlot}\n💰 *Сумма:* ${price}\n\n*Заказанные услуги:*\n`;
-
+            let textReport = `🚨 *НОВАЯ ЗАЯВКА*\n📱 ${phone}\n📍 ${address}\n📅 ${date} в ${selectedTimeSlot}\n💰 Сумма: ${price}\n\n*Услуги:*\n`;
             for (let key in services) {
-                const checkbox = document.getElementById(`srv_${key}`);
-                if(checkbox && checkbox.checked) {
-                    const qty = document.getElementById(`qty_${key}`) ? document.getElementById(`qty_${key}`).value : 1;
-                    const note = document.getElementById(`note_${key}`) ? document.getElementById(`note_${key}`).value.trim() : '';
-                    textReport += `• ${services[key].name} (${qty})\n`;
-                    if(note) textReport += `  _Комментарий: ${note}_\n`;
-                }
+                const cb = document.getElementById(`srv_${key}`);
+                if(cb && cb.checked) textReport += `• ${services[key].name}\n`;
             }
 
             sendToTelegram(textReport);
-            alert('Ваша заявка успешно принята! Менеджер свяжется с вами в течение 5 минут для подтверждения выезда.');
-            
-            document.getElementById('cust_address').value = '';
-            document.getElementById('cust_phone').value = '';
+            alert('Заявка принята! Менеджер свяжется с вами.');
         }
 
         function setFormStars(count) {
             selectedFormStars = count;
             document.querySelectorAll('#star_rating_input span').forEach(span => {
-                const starVal = parseInt(span.getAttribute('data-star'));
-                if(starVal <= count) {
-                    span.classList.add('active');
-                } else {
-                    span.classList.remove('active');
-                }
+                span.classList.toggle('active', parseInt(span.getAttribute('data-star')) <= count);
             });
         }
 
         function sendReview() {
             const name = document.getElementById('rev_name').value.trim();
             const text = document.getElementById('rev_text').value.trim();
-
-            if(!name || !text) { alert('Пожалуйста, заполните имя и текст отзыва!'); return; }
-
-            let starsString = '';
-            for(let i=0; i<selectedFormStars; i++) starsString += '★';
-            for(let i=selectedFormStars; i<5; i++) starsString += '☆';
-
+            if(!name || !text) { alert('Заполните все поля!'); return; }
+            let stars = '★'.repeat(selectedFormStars) + '☆'.repeat(5 - selectedFormStars);
+            
             const div = document.createElement('div');
             div.className = 'review-card';
-            div.innerHTML = `<div class="rev-head"><span>${name}</span><span class="stars">${starsString}</span></div><p>${text}</p>`;
+            div.innerHTML = `<div class="rev-head"><span>${name}</span><span class="stars">${stars}</span></div><p style="font-size:14px; color:#475569;">${text}</p>`;
             document.getElementById('reviews_container').prepend(div);
-
-            sendToTelegram(`✍️ *НОВЫЙ ОТЗЫВ НА САЙТЕ*\n*Имя:* ${name}\n*Оценка:* ${selectedFormStars}/5\n*Текст:* ${text}`);
             
-            alert('Ваш отзыв успешно опубликован!');
-            document.getElementById('rev_name').value = '';
-            document.getElementById('rev_text').value = '';
+            sendToTelegram(`✍️ *НОВЫЙ ОТЗЫВ*\n*Имя:* ${name}\n*Оценка:* ${selectedFormStars}/5\n*Текст:* ${text}`);
+            alert('Отзыв опубликован!');
+        }
+
+        function toggleFaq(el) {
+            const body = el.nextElementSibling;
+            const span = el.querySelector('span');
+            const isOpen = body.style.display === 'block';
+            body.style.display = isOpen ? 'none' : 'block';
+            span.innerText = isOpen ? '+' : '−';
         }
 
         function openLightbox(card) {
             const modal = document.getElementById('lightboxModal');
             const target = document.getElementById('lightboxTarget');
             target.innerHTML = '';
-
-            const img = card.querySelector('img');
-            const video = card.querySelector('video');
-
-            if (img) {
-                const clone = img.cloneNode();
+            const media = card.querySelector('img') || card.querySelector('video');
+            if (media) {
+                const clone = media.cloneNode(true);
                 clone.className = 'lightbox-content';
+                if(clone.tagName === 'VIDEO') { clone.setAttribute('controls', 'true'); clone.removeAttribute('autoplay'); }
                 target.appendChild(clone);
-            } else if (video) {
-                const clone = video.cloneNode(true);
-                clone.className = 'lightbox-content';
-                clone.setAttribute('controls', 'true');
-                clone.removeAttribute('autoplay');
-                target.appendChild(clone);
+                modal.classList.add('active');
             }
-
-            modal.classList.add('active');
         }
 
         function closeLightbox() {
             document.getElementById('lightboxModal').classList.remove('active');
-            document.getElementById('lightboxTarget').innerHTML = '';
-        }
-
-        function filterMedia(type) {
-            document.querySelectorAll('.g-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if(type === 'all') {
-                document.querySelectorAll('.media-card').forEach(c => c.style.display = 'block');
-            } else {
-                document.querySelectorAll('.media-card').forEach(c => c.style.display = 'none');
-                document.querySelectorAll(`.item-${type}`).forEach(c => c.style.display = 'block');
-            }
-        }
-
-        function toggleFaq(el) {
-            const body = el.nextElementSibling;
-            const span = el.querySelector('span');
-            if(body.style.display === 'block') {
-                body.style.display = 'none';
-                span.innerText = '+';
-            } else {
-                body.style.display = 'block';
-                span.innerText = '−';
-            }
         }
 
         function sendToTelegram(msg) {
-            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
-            const proxyUrl = `https://corsproxy.io/?` + encodeURIComponent(url);
             const xhr = new XMLHttpRequest();
-            xhr.open("POST", proxyUrl, true);
+            xhr.open("POST", `https://corsproxy.io/?https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg, parse_mode: 'Markdown' }));
         }
-
-        const services = {
-            standart: { name: 'Стандартная уборка', price: 100, type: 'sqm' },
-            general: { name: 'Генеральная уборка', price: 125, type: 'sqm' },
-            repair: { name: 'Уборка после ремонта', price: 150, type: 'sqm' },
-            regular: { name: 'Регулярная уборка', price: 3, type: 'sqm' },
-            window_m2: { name: 'Мойка окон (м²)', price: 250, type: 'sqm' },
-            balcony: { name: 'Генеральная уборка балкона', price: 3000, type: 'fixed' },
-            bathroom: { name: 'Генеральная уборка санузла', price: 4000, type: 'fixed' },
-            kitchen: { name: 'Генеральная уборка кухни', price: 5000, type: 'fixed' },
-            pool: { name: 'Мытье бассейна', price: 300, type: 'sqm' },
-            micro: { name: 'Почистить микроволновку', price: 500, type: 'fixed' },
-            ozon: { name: 'Услуга озонации помещения', price: 5000, type: 'fixed' },
-            fridge: { name: 'Почистить холодильник', price: 500, type: 'fixed' },
-            oven: { name: 'Почистить духовой шкаф', price: 800, type: 'fixed' },
-            fog: { name: 'Сухой туман', price: 100, type: 'sqm' },
-            floor_wash: { name: 'Глубокая размывка пола', price: 250, type: 'sqm' },
-            sofa2: { name: 'Диван двухместный', price: 1200, type: 'fixed' },
-            sofa3: { name: 'Диван трехместный', price: 2000, type: 'fixed' },
-            sofa_ugl: { name: 'Диван угловой', price: 2500, type: 'fixed' },
-            sofa_nestandart: { name: 'Нестандартный диван', price: 800, type: 'counter' },
-            kitchen_ugl: { name: 'Кухонный уголок', price: 1500, type: 'fixed' },
-            chair_std: { name: 'Кресло стандартное', price: 1000, type: 'fixed' },
-            chair_bed: { name: 'Кресло кровать', price: 1300, type: 'fixed' },
-            pillow: { name: 'Подушки декоративные', price: 300, type: 'counter' },
-            stool: { name: 'Стул без/со спинкой', price: 600, type: 'counter' },
-            puf: { name: 'Пуфик', price: 350, type: 'fixed' },
-            carpet: { name: 'Химчистка ковра', price: 200, type: 'sqm' },
-            kovrolin: { name: 'Ковролин', price: 170, type: 'sqm' },
-            long_carpet: { name: 'Длинноворсовые покрытия', price: 200, type: 'sqm' },
-            mat_child: { name: 'Матрас детский', price: 750, type: 'fixed' },
-            mat_1: { name: 'Матрас односпальный', price: 1100, type: 'fixed' },
-            mat_15: { name: 'Матрас полуторный', price: 1400, type: 'fixed' },
-            mat_2: { name: 'Матрас двухспальный', price: 2000, type: 'fixed' },
-            mat_custom: { name: 'Матрас нестандартный', price: 600, type: 'sqm' },
-            comp_chair: { name: 'Компьютерное кресло', price: 400, type: 'fixed' },
-            stroller: { name: 'Детская коляска', price: 800, type: 'fixed' },
-            wheelchair: { name: 'Инвалидная коляска', price: 800, type: 'fixed' },
-            vitrazh_1: { name: 'Мытье стекол витраж (1 ст)', price: 50, type: 'sqm' },
-            glass_frame: { name: 'Мытье остекления с рамами', price: 60, type: 'sqm' },
-            win_std1_p: { name: 'Мытье окна 1-ств (пластик)', price: 350, type: 'fixed' },
-            win_std1_w: { name: 'Мытье окна 1-ств (дерево)', price: 700, type: 'fixed' },
-            win_std2_p: { name: 'Окно 2-створчатое (пластик)', price: 400, type: 'fixed' },
-            win_std2_w: { name: 'Окно 2-створчатое (дерево)', price: 700, type: 'fixed' },
-            win_std3_p: { name: 'Окно 3-створчатое (пластик)', price: 600, type: 'fixed' },
-            win_std3_w: { name: 'Окно 3-створчатое (дерево)', price: 800, type: 'fixed' },
-            com_glass: { name: 'Коммерческое остекление', price: 250, type: 'sqm' },
-            facade: { name: 'Мойка фасадов', price: 100, type: 'sqm' },
-            facade_rough: { name: 'Мойка фасадов (шерох)', price: 80, type: 'sqm' },
-            facade_ribbed: { name: 'Мойка фасадов (ребр)', price: 40, type: 'sqm' },
-            balcony_block_p: { name: 'Балконный блок (пластик)', price: 800, type: 'fixed' },
-            balcony_block_w: { name: 'Балконный блок (дерево)', price: 1000, type: 'fixed' },
-            grids: { name: 'Москитные сетки', price: 200, type: 'counter' },
-            win_bars_p: { name: 'Оконные решетки (пластик)', price: 150, type: 'fixed' },
-            win_bars_w: { name: 'Оконные решетки (дерево)', price: 250, type: 'fixed' },
-            siding: { name: 'Сайдинг облицовочный', price: 60, type: 'sqm' },
-            vitrazh_in: { name: 'Мытье витражей внутри', price: 250, type: 'sqm' },
-            banner_flat: { name: 'Вывеска (гладкая)', price: 90, type: 'sqm' },
-            banner_letters: { name: 'Вывеска (объемные буквы)', price: 100, type: 'sqm' }
-        };
-
-        calculateTotal();
     </script>
 </body>
 </html>
