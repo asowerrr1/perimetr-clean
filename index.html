@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ПЕРИМЕТР — Профессиональный клининг</title>
+    <title>AquaLine — Профессиональный клининг</title>
     
     <script>
         // =========================================================================
         // НАСТРОЙКИ TELEGRAM
         // =========================================================================
         const TELEGRAM_TOKEN = '8732328387:AAHuh7J0aUz3KPGnyLlrp9nQe2Fmr_FZOeI';
-        const TELEGRAM_CHAT_ID = '5351103203';
+        const TELEGRAM_CHAT_ID = '-5191014005';
         // =========================================================================
     </script>
 
@@ -28,7 +28,6 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
         
-        /* Исправление: чтобы при клике на меню или кнопку шапка не перекрывала заголовок */
         html { scroll-behavior: smooth; scroll-padding-top: 90px; }
         
         body {
@@ -66,21 +65,64 @@
         .header-contacts a { font-size: 18px; font-weight: 800; color: var(--main-blue); text-decoration: none; }
         .header-contacts span { font-size: 11px; color: var(--text-gray); }
 
-        /* --- ГЛАВНЫЙ ЭКРАН (HERO) --- */
+        /* --- ГЛАВНЫЙ ЭКРАН (HERO С ПЛАВНЫМ ПЕРЕХОДОМ В ФОТО) --- */
         .hero {
-            padding: 80px 5%;
-            text-align: center;
-            background: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&q=80') center/cover no-repeat;
             position: relative;
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            padding: 40px 5%;
+            /* Загружаем ваше основное фото hero-bg.jpg, либо качественную заглушку */
+            background: url('hero-bg.jpg') right center/cover no-repeat;
+            background-image: url('hero-bg.jpg'), url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80');
+            overflow: hidden;
+            border-bottom: 1px solid rgba(14, 165, 233, 0.1);
         }
+        /* Эффект идеального градиентного растворения от белого фона к фото справа */
         .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(240,247,255,0.85), rgba(224,242,254,0.95));
-            pointer-events: none; /* Защита, чтобы фон не блокировал кнопку на телефоне */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ffffff 0%, #f0f7ff 35%, #e0f2fe 50%, rgba(224, 242, 254, 0.4) 70%, rgba(255, 255, 255, 0) 100%);
+            z-index: 1;
         }
-        .hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
-        .hero h2 { font-size: 42px; color: var(--main-blue); font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
-        .hero p { font-size: 18px; color: var(--text-gray); margin-bottom: 30px; }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 580px;
+            text-align: left;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .hero-logo-block {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .hero-logo-img {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+        }
+        .hero-brand-name {
+            font-size: 46px;
+            font-weight: 800;
+            color: var(--main-blue);
+            letter-spacing: 0.5px;
+        }
+        .hero h2 {
+            font-size: 24px;
+            color: var(--text-gray);
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
         .btn-large {
             display: inline-block; padding: 18px 40px; background: var(--light-blue); color: white;
             text-decoration: none; font-size: 18px; font-weight: 700; border-radius: 50px;
@@ -114,7 +156,6 @@
         .category-box { background: var(--card-bg); border-radius: 16px; padding: 25px; margin-bottom: 25px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.6); }
         .category-title { font-size: 18px; text-transform: uppercase; color: var(--light-blue); font-weight: 800; margin-bottom: 20px; border-left: 4px solid var(--light-blue); padding-left: 12px; }
         
-        /* Плиточный дизайн услуг для одинакового размера */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
         
         .service-item {
@@ -186,7 +227,24 @@
         @media (max-width: 968px) {
             .nav-links { display: none; }
             .header-contacts a { font-size: 15px; }
-            .hero h2 { font-size: 32px; }
+            .hero {
+                background-position: center;
+                text-align: center;
+                justify-content: center;
+                padding: 60px 20px;
+                min-height: 450px;
+            }
+            .hero::before {
+                background: linear-gradient(to bottom, rgba(255,255,255,0.96) 0%, rgba(240,247,255,0.92) 100%);
+            }
+            .hero-content {
+                max-width: 100%;
+                align-items: center;
+                text-align: center;
+            }
+            .hero-logo-block { justify-content: center; }
+            .hero-brand-name { font-size: 38px; }
+            .hero h2 { font-size: 18px; }
             .order-layout, .reviews-layout { grid-template-columns: 1fr; }
             .sidebar { position: static; }
             .services-grid { grid-template-columns: 1fr; }
@@ -203,10 +261,10 @@
 
     <header>
         <a href="#" class="logo-container">
-            <img src="logo.png" class="logo-img" alt="ПЕРИМЕТР">
+            <img src="logo.png" class="logo-img" alt="AquaLine">
             <div class="logo-text">
-                <h1>ПЕРИМЕТР</h1>
-                <p>Чисто внутри. Идеально вокруг.</p>
+                <h1>AquaLine</h1>
+                <p>Пространство, в котором хочется жить.</p>
             </div>
         </a>
         <nav class="nav-links">
@@ -223,9 +281,12 @@
 
     <div class="hero">
         <div class="hero-content">
-            <h2>Профессиональный клининг для тех, кто ценит свое время и безупречную чистоту</h2>
-            <p>Уборка домов, квартир, коттеджей и коммерческих помещений любой сложности. Доверьте рутину профессионалам.</p>
-            <a href="#calculator" class="btn-large" onclick="document.getElementById('calculator').scrollIntoView({behavior: 'smooth'}); return false;">Вызвать бригаду и рассчитать стоимость</a>
+            <div class="hero-logo-block">
+                <img src="logo.png" alt="AquaLine" class="hero-logo-img">
+                <div class="hero-brand-name">AquaLine</div>
+            </div>
+            <h2>Пространство, в котором хочется жить.</h2>
+            <a href="#calculator" class="btn-large" onclick="document.getElementById('calculator').scrollIntoView({behavior: 'smooth'}); return false;">Заказать уборку</a>
         </div>
     </div>
 
@@ -312,7 +373,6 @@
                         <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_carpet" onchange="calculateTotal()"><label for="srv_carpet" class="service-name">Химчистка ковра</label></div></div><div class="service-right"><span class="price-label">200 руб/м²</span><div class="qty-box"><input type="number" id="qty_carpet" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
                         <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_mat_2" onchange="calculateTotal()"><label for="srv_mat_2" class="service-name">Матрас двуспальный</label></div></div><div class="service-right"><span class="price-label">2000 руб/шт</span></div></div>
                         <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_stroller" onchange="calculateTotal()"><label for="srv_stroller" class="service-name">Детская коляска</label></div></div><div class="service-right"><span class="price-label">800 руб/шт</span></div></div>
-                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_wheelchair" onchange="calculateTotal()"><label for="srv_wheelchair" class="service-name">Инвалидная коляска</label></div></div><div class="service-right"><span class="price-label">800 руб/шт</span></div></div>
                     </div>
                 </div>
 
@@ -384,8 +444,7 @@
 
     <section id="faq">
         <div class="section-title">Частые вопросы</div>
-        <div style="max-width: 900px; margin: 0 auto;">
-            <div class="faq-item">
+        <div class="faq-item">
             <div class="faq-header" onclick="toggleFaq(this)">Какие вы даете гарантии, что уборка будет выполнена качественно? <span>+</span></div>
             <div class="faq-body">Наша компания несет полную ответственность за высокое качество оказываемых услуг и наша гарантия – это ваша оценка результата. В случае если оценка будет низкой, то мы сделаем все возможное чтобы исправить ее, либо вернем вам деньги.</div>
         </div>
@@ -407,10 +466,10 @@
     </section>
 
     <footer>
-        <div style="font-size: 24px; font-weight: 800; margin-bottom: 10px;">ПЕРИМЕТР</div>
+        <div style="font-size: 24px; font-weight: 800; margin-bottom: 10px;">AquaLine</div>
         <p>Профессиональный клининг загородных домов и коммерческих помещений</p>
         <p style="margin-top:20px;">Телефон для связи: <strong>+7 (3852) 00-00-00</strong></p>
-        <p style="opacity: 0.5; margin-top:30px;">© 2026 ПЕРИМЕТР. Все права защищены.</p>
+        <p style="opacity: 0.5; margin-top:30px;">© 2026 AquaLine. Все права защищены.</p>
     </footer>
 
     <script>
@@ -438,8 +497,7 @@
             pillow: { name: 'Подушки декоративные', price: 300, type: 'counter' },
             carpet: { name: 'Химчистка ковра', price: 200, type: 'sqm' },
             mat_2: { name: 'Матрас двуспальный', price: 2000, type: 'fixed' },
-            stroller: { name: 'Детская коляска', price: 800, type: 'fixed' },
-            wheelchair: { name: 'Инвалидная коляска', price: 800, type: 'fixed' }
+            stroller: { name: 'Детская коляска', price: 800, type: 'fixed' }
         };
 
         let selectedFormStars = 5;
