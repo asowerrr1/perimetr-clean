@@ -65,65 +65,64 @@
         .header-contacts a { font-size: 18px; font-weight: 800; color: var(--main-blue); text-decoration: none; }
         .header-contacts span { font-size: 11px; color: var(--text-gray); }
 
-       /* --- ГЛАВНЫЙ ЭКРАН (HERO С ПЛАВНЫМ ПЕРЕХОДОМ В ФОТО) --- */
-.hero {
-    position: relative;
-    min-height: 520px;
-    display: flex;
-    align-items: center;
-    padding: 40px 5%;
-    /* Оставляем только одну правильную рабочую ссылку на файл фона */
-    background: url('hero.jpg') right center/cover no-repeat;
-    overflow: hidden;
-    border-bottom: 1px solid rgba(14, 165, 233, 0.1);
-}
-/* Эффект идеального градиентного растворения от белого фонда к фото справа */
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, #ffffff 0%, #f0f7ff 35%, #e0f2fe 50%, rgba(224, 242, 254, 0.4) 70%, rgba(255, 255, 255, 0) 100%);
-    z-index: 1;
-}
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 580px;
-    text-align: left;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-.hero-logo-block {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-.hero-logo-img {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
-}
-.hero-brand-name {
-    font-size: 46px;
-    font-weight: 800;
-    color: var(--main-blue);
-    letter-spacing: 0.5px;
-}
-.hero h2 {
-    font-size: 24px;
-    color: var(--text-gray);
-    font-weight: 600;
-    margin-bottom: 30px;
-    line-height: 1.4;
-}
+       /* --- ГЛАВНЫЙ ЭКРАН --- */
+        .hero {
+            position: relative;
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            padding: 40px 5%;
+            background: url('hero.jpg') right center/cover no-repeat;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(14, 165, 233, 0.1);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ffffff 0%, #f0f7ff 35%, #e0f2fe 50%, rgba(224, 242, 254, 0.4) 70%, rgba(255, 255, 255, 0) 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 580px;
+            text-align: left;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .hero-logo-block {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .hero-logo-img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+        .hero-brand-name {
+            font-size: 46px;
+            font-weight: 800;
+            color: var(--main-blue);
+            letter-spacing: 0.5px;
+        }
+        .hero h2 {
+            font-size: 24px;
+            color: var(--text-gray);
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
         .btn-large {
-            display: inline-block; padding: 18px 40px; background: var(--light-blue); color: white;
+            display: inline-block;
+            padding: 18px 40px; background: var(--light-blue); color: white;
             text-decoration: none; font-size: 18px; font-weight: 700; border-radius: 50px;
             box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); transition: var(--transition); cursor: pointer;
         }
@@ -135,9 +134,11 @@
         
         /* --- О КОМПАНИИ --- */
         .about-text {
-            background: var(--card-bg); padding: 40px; border-radius: 20px; box-shadow: var(--shadow);
+            background: var(--card-bg);
+            padding: 40px; border-radius: 20px; box-shadow: var(--shadow);
             text-align: center; font-size: 16px; color: var(--text-dark); border: 1px solid rgba(255,255,255,0.6);
-            max-width: 900px; margin: 0 auto 40px auto;
+            max-width: 900px;
+            margin: 0 auto 40px auto;
         }
 
         /* --- КОМАНДА --- */
@@ -236,11 +237,7 @@
             .hero::before {
                 background: linear-gradient(to bottom, rgba(255,255,255,0.96) 0%, rgba(240,247,255,0.92) 100%);
             }
-            .hero-content {
-                max-width: 100%;
-                align-items: center;
-                text-align: center;
-            }
+            .hero-content { max-width: 100%; align-items: center; text-align: center; }
             .hero-logo-block { justify-content: center; }
             .hero-brand-name { font-size: 38px; }
             .hero h2 { font-size: 18px; }
@@ -340,7 +337,7 @@
                         <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_standart" onchange="calculateTotal()"><label for="srv_standart" class="service-name">Стандартная уборка</label></div></div><div class="service-right"><span class="price-label">100 руб/м²</span><div class="qty-box"><input type="number" id="qty_standart" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
                         <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_general" onchange="calculateTotal()"><label for="srv_general" class="service-name">Генеральная уборка</label></div></div><div class="service-right"><span class="price-label">125 руб/м²</span><div class="qty-box"><input type="number" id="qty_general" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
                         <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_repair" onchange="calculateTotal()"><label for="srv_repair" class="service-name">Уборка после ремонта</label></div></div><div class="service-right"><span class="price-label">150 руб/м²</span><div class="qty-box"><input type="number" id="qty_repair" value="50" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
-                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_regular" onchange="calculateTotal()"><label for="srv_regular" class="service-name">Регулярная уборка (Юр. лица)</label></div></div><div class="service-right"><span class="price-label">от 3 руб/м²</span><div class="qty-box"><input type="number" id="qty_regular" value="100" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_regular" onchange="calculateTotal()"><label for="srv_regular" class="service-name">Регулярная уборка (Юр. лица)</label></div></div><div class="service-right"><span class="price-label">100 руб/м²</span><div class="qty-box"><input type="number" id="qty_regular" value="100" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
                     </div>
                 </div>
 
@@ -348,7 +345,7 @@
                     <div class="category-title">Отдельные услуги по уборке</div>
                     <div class="services-grid">
                         <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_window_m2" onchange="calculateTotal()"><label for="srv_window_m2" class="service-name">Мойка окон</label></div></div><div class="service-right"><span class="price-label">250 руб/м²</span><div class="qty-box"><input type="number" id="qty_window_m2" value="10" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
-                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_balcony" onchange="calculateTotal()"><label for="srv_balcony" class="service-name">Генеральная уборка балкона</label></div></div><div class="service-right"><span class="price-label">3000 руб</span></div></div>
+                        <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_balcony" onchange="calculateTotal()"><label for="srv_balcony" class="service-name">Генеральная уборка балкона</label></div></div><div class="service-right"><span class="price-label">300 руб/м²</span><div class="qty-box"><input type="number" id="qty_balcony" value="5" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
                         <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_bathroom" onchange="calculateTotal()"><label for="srv_bathroom" class="service-name">Генеральная уборка санузла</label></div></div><div class="service-right"><span class="price-label">4000 руб</span></div></div>
                         <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_kitchen" onchange="calculateTotal()"><label for="srv_kitchen" class="service-name">Генеральная уборка кухни</label></div></div><div class="service-right"><span class="price-label">5000 руб</span></div></div>
                         <div class="service-item"><div class="service-main"><div class="service-left"><input type="checkbox" id="srv_pool" onchange="calculateTotal()"><label for="srv_pool" class="service-name">Мытье бассейна</label></div></div><div class="service-right"><span class="price-label">300 руб/м²</span><div class="qty-box"><input type="number" id="qty_pool" value="25" min="1" oninput="calculateTotal()"><span>м²</span></div></div></div>
@@ -407,7 +404,7 @@
                 <div class="media-info">Генеральная уборка комнат</div>
             </div>
             <div class="media-card" onclick="openLightbox(this)">
-                <video src="video1.mp4" controls poster="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600"></video>
+                 <video src="video1.mp4" controls poster="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600"></video>
                 <div class="media-info">Очистка после ремонта</div>
             </div>
             <div class="media-card" onclick="openLightbox(this)">
@@ -444,22 +441,22 @@
     <section id="faq">
         <div class="section-title">Частые вопросы</div>
         <div class="faq-item">
-            <div class="faq-header" onclick="toggleFaq(this)">Какие вы даете гарантии, что уборка будет выполнена качественно? <span>+</span></div>
+            <div class="faq-header" onclick="toggleFaq(this)">Какие вы даете гарантии, что уборка будет выполнена качественно?<span>+</span></div>
             <div class="faq-body">Наша компания несет полную ответственность за высокое качество оказываемых услуг и наша гарантия – это ваша оценка результата. В случае если оценка будет низкой, то мы сделаем все возможное чтобы исправить ее, либо вернем вам деньги.</div>
         </div>
 
         <div class="faq-item">
-            <div class="faq-header" onclick="toggleFaq(this)">Возможно и безопасно ли оставлять Клинера одного в квартире? <span>+</span></div>
+            <div class="faq-header" onclick="toggleFaq(this)">Возможно и безопасно ли оставлять Клинера одного в квартире?<span>+</span></div>
             <div class="faq-body">Да, это возможно и безопасно. Пользуясь услугами нашей компании все ваше имущество застраховано на время уборки и мы несём ответственность за его сохранность.</div>
         </div>
 
         <div class="faq-item">
-            <div class="faq-header" onclick="toggleFaq(this)">Выезжаете ли вы в пригород? <span>+</span></div>
+            <div class="faq-header" onclick="toggleFaq(this)">Выезжаете ли вы в пригород?<span>+</span></div>
             <div class="faq-body">Да, мы выезжаем в пригород.</div>
         </div>
 
         <div class="faq-item">
-            <div class="faq-header" onclick="toggleFaq(this)">Как возможно оплатить ваши услуги? <span>+</span></div>
+            <div class="faq-header" onclick="toggleFaq(this)">Как возможно оплатить ваши услуги?<span>+</span></div>
             <div class="faq-body">Вы можете оплачивать как наличным так и безналичным способами путем перевода денег на карту Сбербанк. И для юридических лиц через расчетный счет компании.</div>
         </div>
     </section>
@@ -477,9 +474,9 @@
             standart: { name: 'Стандартная уборка', price: 100, type: 'sqm' },
             general: { name: 'Генеральная уборка', price: 125, type: 'sqm' },
             repair: { name: 'Уборка после ремонта', price: 150, type: 'sqm' },
-            regular: { name: 'Регулярная уборка', price: 3, type: 'sqm' },
+            regular: { name: 'Регулярная уборка', price: 100, type: 'sqm' },
             window_m2: { name: 'Мойка окон (м²)', price: 250, type: 'sqm' },
-            balcony: { name: 'Генеральная уборка балкона', price: 3000, type: 'fixed' },
+            balcony: { name: 'Генеральная уборка балкона', price: 300, type: 'sqm' },
             bathroom: { name: 'Генеральная уборка санузла', price: 4000, type: 'fixed' },
             kitchen: { name: 'Генеральная уборка кухни', price: 5000, type: 'fixed' },
             pool: { name: 'Мытье бассейна', price: 300, type: 'sqm' },
@@ -498,7 +495,6 @@
             mat_2: { name: 'Матрас двуспальный', price: 2000, type: 'fixed' },
             stroller: { name: 'Детская коляска', price: 800, type: 'fixed' }
         };
-
         let selectedFormStars = 5;
         let selectedTimeSlot = '';
 
@@ -513,7 +509,8 @@
                 if (checkbox && checkbox.checked) {
                     let cost = 0, label = '';
                     if (services[key].type === 'fixed') {
-                        cost = services[key].price; label = services[key].name;
+                        cost = services[key].price;
+                        label = services[key].name;
                     } else {
                         const qty = parseInt(qtyInput.value) || 0;
                         cost = qty * services[key].price;
@@ -550,13 +547,12 @@
             const phone = document.getElementById('cust_phone').value.trim();
             const date = document.getElementById('order_date').value;
             const price = document.getElementById('total_price').innerText;
-
             if(price === '0 руб.' || !address || !phone || !date || !selectedTimeSlot) {
                 alert('Пожалуйста, выберите услуги, дату, время, укажите телефон и адрес!');
                 return;
             }
 
-            let textReport = `🚨 *НОВАЯ ЗАЯВКА*\n📱 ${phone}\n📍 ${address}\n📅 ${date} в ${selectedTimeSlot}\n💰 Сумма: ${price}\n\n*Услуги:*\n`;
+            let textReport = `🚨 <b>НОВАЯ ЗАЯВКА</b>\n📱 ${phone}\n📍 ${address}\n📅 ${date} в ${selectedTimeSlot}\n💰 Сумма: ${price}\n\n<b>Услуги:</b>\n`;
             for (let key in services) {
                 const cb = document.getElementById(`srv_${key}`);
                 if(cb && cb.checked) textReport += `• ${services[key].name}\n`;
@@ -577,14 +573,20 @@
             const name = document.getElementById('rev_name').value.trim();
             const text = document.getElementById('rev_text').value.trim();
             if(!name || !text) { alert('Заполните все поля!'); return; }
-            let stars = '★'.repeat(selectedFormStars) + '☆'.repeat(5 - selectedFormStars);
             
+            let stars = '★'.repeat(selectedFormStars) + '☆'.repeat(5 - selectedFormStars);
             const div = document.createElement('div');
             div.className = 'review-card';
             div.innerHTML = `<div class="rev-head"><span>${name}</span><span class="stars">${stars}</span></div><p style="font-size:14px; color:#475569;">${text}</p>`;
             document.getElementById('reviews_container').prepend(div);
             
-            sendToTelegram(`✍️ *НОВЫЙ ОТЗЫВ*\n*Имя:* ${name}\n*Оценка:* ${selectedFormStars}/5\n*Текст:* ${text}`);
+            sendToTelegram(`✍️ <b>НОВЫЙ ОТЗЫВ</b>\n<b>Имя:</b> ${name}\n<b>Оценка:</b> ${selectedFormStars}/5\n<b>Текст:</b> ${text}`);
+            
+            // Очищаем форму после отправки
+            document.getElementById('rev_name').value = '';
+            document.getElementById('rev_text').value = '';
+            setFormStars(5);
+            
             alert('Отзыв опубликован!');
         }
 
@@ -615,12 +617,26 @@
         }
 
         function sendToTelegram(msg) {
-    const xhr = new XMLHttpRequest();
-    // Отправляем запрос напрямую на официальный API Telegram
-    xhr.open("POST", `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg, parse_mode: 'Markdown' }));
-}
+            fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: msg,
+                    parse_mode: 'HTML'
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.error("Ошибка при отправке в ТГ:", response);
+                }
+            })
+            .catch(error => {
+                console.error("Сетевая ошибка:", error);
+            });
+        }
     </script>
 </body>
 </html>
